@@ -7,6 +7,7 @@ module.exports = {
     hardhat: {
       forking: {
         url: "https://eth-mainnet.g.alchemy.com/v2/daoLoBqDaOiWXzDNfkCmn2GWHhB89bfS",
+        allowUnlimitedContractSize: true,
         blockNumber: 16512274
       }
     }
