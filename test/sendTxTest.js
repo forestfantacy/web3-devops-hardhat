@@ -36,16 +36,16 @@ describe("", function () {
 
       //余额
       console.log("1 whale.getBalance", ethers.utils.formatEther(await whaleSigner.getBalance()));
-      console.log("1 recei.getBalance", ethers.utils.formatEther(await provider.getBalance(RECEIVE_ADDR)));
+      console.log("1 recei.getBalance", ethers.utils.formatEther(await receiveSigner.getBalance()));
 
       //冒充转账
       const tx = await whaleSigner.sendTransaction({
-        to: RECEIVE_ADDR,
+        to: receiveSigner.address,
         value: ethers.utils.parseUnits("1000", "ether"),
       });
       //查余额
       console.log("2 whale.getBalance", ethers.utils.formatEther(await whaleSigner.getBalance()));
-      console.log("2 recei.getBalance", ethers.utils.formatEther(await provider.getBalance(RECEIVE_ADDR)));
+      console.log("2 recei.getBalance", ethers.utils.formatEther(await receiveSigner.getBalance()));
 
     //   let daiToken = await ethers.getContractAt("IERC20",DAI);
 
