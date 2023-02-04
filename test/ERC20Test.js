@@ -10,6 +10,7 @@ describe("", function () {
   const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F';
   const RECEIVER = '0x8C8D7C46219D9205f056f28fee5950aD564d7465';
   let daiSigner
+  let daiToken
 
   beforeEach(async () => {
 
@@ -18,19 +19,22 @@ describe("", function () {
       method: "hardhat_impersonateAccount",
       params: [DAI]
     })
+    daiToken = await ethers.getContractAt("IERC20",DAI);
 
     //获取私钥
     daiSigner = await ethers.getSigner(DAI);
+
   })
 
   describe("testxxx", function () {
-
-    it("testcase: DAI_WHALE send DAI to RECEIVE_ADDR", async function () {
-        const daiToken = await ethers.getContractAt("IERC20",DAI);
-        const balanceWhale = await daiToken.balanceOf(DAI_WHALE);
-        const balanceReceiver = await daiToken.balanceOf(RECEIVER);
-        console.log("balanceWhale:",balanceWhale);
-        console.log("balanceReceiver:",balanceReceiver);
+    it("testcase: check DAI_WHALE and RECEIVER of DAI", async function () {
+        console.log("balanceWhale:",await daiToken.balanceOf(DAI_WHALE));
+        console.log("balanceReceiver:",await daiToken.balanceOf(RECEIVER));
+    });
+    it("testcase: DAI_WHALE send DAI to RECEIVE", async function () {
+        daiToken.transferFrom(DAI_WHALE,RECEIVE,100);
+        console.log("after transform balanceWhale:",await daiToken.balanceOf(DAI_WHALE));
+        console.log("after transform balanceReceiver:",await daiToken.balanceOf(RECEIVER));
     });
   });
 });
