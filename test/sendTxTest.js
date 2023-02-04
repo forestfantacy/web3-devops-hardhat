@@ -14,7 +14,7 @@ describe("", function () {
 
   describe("testxxx", function () {
 
-    it("Test flash loan swap", async function () {
+    it("testcase: DAI_WHALE send 100 eth to RECEIVE", async function () {
       
       const provider = ethers.getDefaultProvider();
       // const provider = ethers.getDefaultProvider("goerli");
@@ -28,21 +28,24 @@ describe("", function () {
 
       const [owner, addr1 , addr2] = await ethers.getSigners();
 
-      console.log("0 ............");
+      console.log("own:%s,addr1:%s,addr2:%s",owner,addr1,addr2);
  
       //获取私钥
       let whaleSigner = await ethers.getSigner(DAI_WHALE);
+      let receiveSigner = await ethers.getSigner(RECEIVE_ADDR);
+
       //余额
       console.log("1 whale.getBalance", ethers.utils.formatEther(await whaleSigner.getBalance()));
-      console.log("1 recei.getBalance", ethers.utils.formatEther(await addr1.getBalance()));
+      console.log("1 recei.getBalance", ethers.utils.formatEther(await provider.getBalance(RECEIVE_ADDR)));
+
       //冒充转账
       const tx = await whaleSigner.sendTransaction({
-        to: addr1.address,
+        to: RECEIVE_ADDR,
         value: ethers.utils.parseUnits("1000", "ether"),
       });
       //查余额
       console.log("2 whale.getBalance", ethers.utils.formatEther(await whaleSigner.getBalance()));
-      console.log("2 recei.getBalance", ethers.utils.formatEther(await addr1.getBalance()));
+      console.log("2 recei.getBalance", ethers.utils.formatEther(await provider.getBalance(RECEIVE_ADDR)));
 
     //   let daiToken = await ethers.getContractAt("IERC20",DAI);
 
