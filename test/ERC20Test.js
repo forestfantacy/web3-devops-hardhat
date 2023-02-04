@@ -34,7 +34,7 @@ describe("", function () {
         console.log("balanceReceiver:",await daiToken.balanceOf(RECEIVER));
     });
     it("testcase: DAI_WHALE send DAI to RECEIVE", async function () {
-        daiToken.transferFrom(address(daiWhileSigner.address, receiveAddr.address, 100);
+        daiToken.transferFrom(address(daiWhileSigner.address, receiveAddr.address, 100));
         console.log("after transform balanceWhale:",await daiToken.balanceOf(DAI_WHALE));
         console.log("after transform balanceReceiver:",await daiToken.balanceOf(RECEIVER));
     });
