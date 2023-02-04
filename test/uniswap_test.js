@@ -3,10 +3,9 @@ const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers/withArgs");
 const { expect } = require("chai");
 const { ethers,network } = require("hardhat");
 const { ChainId, Fetcher, WETH, Route, Trade, TokenAmount, TradeType, Percent } = require('@uniswap/sdk');
-const { ethers } = require("ethers");
 
 describe("", function () {
-
+  const chainId = ChainId.MAINNET
   const mainnet_UniswapV2Router02_Address = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D';
   const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F';
   const DAI_WHALE = '0xF977814e90dA44bFA03b6295A0616a897441aceC';
@@ -35,7 +34,8 @@ describe("", function () {
             })
 
         //根据网络和地址获取DAI
-        const dai = await Fetcher.fetchTokenData(chainId, mainnet_dai_Address, provider);
+        const provider = ethers.getDefaultProvider();
+        const dai = await Fetcher.fetchTokenData(chainId, DAI, provider);
         //从sdk 直接取出主网的weth信息
         const weth = WETH[chainId];
         console.log("weth name:",weth.name,'addr:',weth.address);
@@ -64,8 +64,9 @@ describe("", function () {
 
 
         // const signer = new ethers.Wallet("PRIVATE_KEY");
-        const signer = daiWhileSigner;
-        const account = signer.connect(provider);
+        // const signer = daiWhileSigner;
+        // const account = signer.connect(provider);
+        const account = daiWhileSigner.account;
 
         //构造交易所router2合约
         const uniwap = new ethers.Contract(
@@ -73,7 +74,7 @@ describe("", function () {
           ['function swapExactETHForTokens(uint amountOutMin, address[] calldata path, address to, uint deadline) external payable returns (uint[] memory amounts);'],
           account
         );
-
+        console.log('uniwap',uniwap);
         // eth =》 dai
         const path = [weth.address, dai.address];
 
