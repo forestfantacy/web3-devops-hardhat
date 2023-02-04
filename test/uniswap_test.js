@@ -20,7 +20,8 @@ describe("", function () {
             method: "hardhat_impersonateAccount",
             params: [DAI]
         })
-    
+        const daiToken = await ethers.getContractAt("IERC20",DAI);
+
         //冒充DAI_WHALE
         await network.provider.request({
           method: "hardhat_impersonateAccount",
@@ -58,41 +59,41 @@ describe("", function () {
         //万分之五滑点
         const slippageTolerance = new Percent('50', '10000');
         //计算当前滑点下的换出的DAI最小值
-        const minimumAmountOut = trade.minimumAmountOut(slippageTolerance).raw;
-        console.log(`5/1000 slippageTolerance,minimumAmountOut: ${minimumAmountOut}`);
-
-
-
+        const minimumAmountOut = Math.floor(trade.minimumAmountOut(slippageTolerance).toExact());
+        console.log("5/1000 slippageTolerance,minimumAmountOut:",minimumAmountOut);
 
         // const signer = new ethers.Wallet("PRIVATE_KEY");
-        // const signer = daiWhileSigner;
         // const account = signer.connect(provider);
-        const account = daiWhileSigner.account;
+
+        //构造交易所router2合约
         const abi = [        
           "function swapExactETHForTokens(uint amountOutMin, address[] calldata path, address to, uint deadline) external payable returns (uint[] memory amounts)"
         ];
-        //构造交易所router2合约
+ 
         const uniwap = new ethers.Contract(
           mainnet_UniswapV2Router02_Address,
           abi,
-          uniswapV2Router02Signer
+          // uniswapV2Router02Signer
+          daiWhileSigner
         );
-        // console.log('uniwap',uniwap);
+ 
         // eth =》 dai
         const path = [weth.address, dai.address];
 
         const deadline = Math.floor(Date.now() / 1000) + 60 * 20;
-        const value = trade.inputAmount.raw;
-        console.log(value);
-        // console.log("swapExactETHForTokens: amountOutMin[%s],path[%s],to[%s],deadline[%s],value[%s]",minimumAmountOut,path,to,deadline,value.toHexString());
+        const value = ethers.utils.parseUnits("100", "ether");
+        console.log("");
+        console.log("swapExactETHForTokens: amountOutMin[%s],path[%s],to[%s],deadline[%s],value[%s]",minimumAmountOut,path,to,deadline,value);
+        console.log("");
+        console.log("before  transform balanceReceiver:",await daiToken.balanceOf(to));
         const tx = await uniwap.swapExactETHForTokens(
           minimumAmountOut,
           path,
           to,
           deadline,
-          { value , gasPrice: 20e9 }
+          { value }
         );
-        console.log(`Transaction hash: ${tx.hash}`);
+        console.log("after  transform balanceReceiver:",await daiToken.balanceOf(to));
 
         const receipt = await tx.wait();
         console.log(`Transaction was mined in block ${receipt.blockNumber}`);
