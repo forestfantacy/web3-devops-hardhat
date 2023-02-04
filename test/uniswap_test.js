@@ -32,6 +32,7 @@ describe("", function () {
             method: "hardhat_impersonateAccount",
             params: [mainnet_UniswapV2Router02_Address]
             })
+        const uniswapV2Router02Signer= await ethers.getSigner(mainnet_UniswapV2Router02_Address);
 
         //根据网络和地址获取DAI
         const provider = ethers.getDefaultProvider();
@@ -67,27 +68,29 @@ describe("", function () {
         // const signer = daiWhileSigner;
         // const account = signer.connect(provider);
         const account = daiWhileSigner.account;
-
+        const abi = [        
+          "function swapExactETHForTokens(uint amountOutMin, address[] calldata path, address to, uint deadline) external payable returns (uint[] memory amounts)"
+        ];
         //构造交易所router2合约
         const uniwap = new ethers.Contract(
           mainnet_UniswapV2Router02_Address,
-          ['function swapExactETHForTokens(uint amountOutMin, address[] calldata path, address to, uint deadline) external payable returns (uint[] memory amounts);'],
-          account
+          abi,
+          uniswapV2Router02Signer
         );
-        console.log('uniwap',uniwap);
+        // console.log('uniwap',uniwap);
         // eth =》 dai
         const path = [weth.address, dai.address];
 
         const deadline = Math.floor(Date.now() / 1000) + 60 * 20;
         const value = trade.inputAmount.raw;
-
-        console.log("swapExactETHForTokens: amountOutMin[%s],path[%s],to[%s],deadline[%s],value[%s]",amountOutMin,path,to,deadline,value);
+        console.log(value);
+        // console.log("swapExactETHForTokens: amountOutMin[%s],path[%s],to[%s],deadline[%s],value[%s]",minimumAmountOut,path,to,deadline,value.toHexString());
         const tx = await uniwap.swapExactETHForTokens(
-          amountOutMin,
+          minimumAmountOut,
           path,
           to,
           deadline,
-          { value, gasPrice: 20e9 }
+          { value , gasPrice: 20e9 }
         );
         console.log(`Transaction hash: ${tx.hash}`);
 
