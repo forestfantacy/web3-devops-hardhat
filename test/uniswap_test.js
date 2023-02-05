@@ -89,7 +89,7 @@ describe("", function () {
           abi,
           daiWhileSigner
         );
- 
+        
         // eth =》 dai
         const path = [weth.address, dai.address];
 
@@ -98,8 +98,8 @@ describe("", function () {
         console.log("");
         console.log("swapExactETHForTokens: amountOutMin[%s],path[%s],to[%s],deadline[%s],value[%s]",minimumAmountOut,path,to,deadline,value);
         console.log("");
-        console.log("before swap balanceWhale   :",await daiWhileSigner.getBalance());
-        console.log("before swap balanceReceiver:",await daiToken.balanceOf(to));
+        console.log("before swap balanceWhale   :",ethers.utils.formatEther(await daiWhileSigner.getBalance()));
+        console.log("before swap balanceReceiver:",ethers.utils.formatEther(await daiToken.balanceOf(to)));
         const tx = await uniwap.swapExactETHForTokens(
           minimumAmountOut,
           //amountOutMinHex,
@@ -111,8 +111,8 @@ describe("", function () {
         const receipt = await tx.wait();
         console.log(`Transaction was mined in block ${receipt.blockNumber}`);
 
-        console.log("after  swap balanceReceiver:",await daiToken.balanceOf(to));
-        console.log("after  swap balanceWhale   :",await daiWhileSigner.getBalance());
+        console.log("after  swap balanceReceiver:",ethers.utils.formatEther(await daiToken.balanceOf(to)));
+        console.log("after  swap balanceWhale   :",ethers.utils.formatEther(await daiWhileSigner.getBalance()));
 
 
     });
