@@ -48,8 +48,8 @@ describe("", function () {
         //根据地址/abi/冒充拥有者 获取DAI合约 
         const erc20_rw = new ethers.Contract(DAI, abi, await ethers.getSigner(DAI));
         
-        console.log("before transform balanceWhale   :",await erc20_rw.balanceOf(DAI_WHALE));
-        console.log("before transform balanceReceiver:",await erc20_rw.balanceOf(RECEIVER));
+        console.log("before transform balanceWhale   :",ethers.utils.formatEther(await erc20_rw.balanceOf(DAI_WHALE)));
+        console.log("before transform balanceReceiver:",ethers.utils.formatEther(await erc20_rw.balanceOf(RECEIVER)));
 
         // 直接转账 转出账户：调用者WHALE    目标账户：RECEIVER
         await erc20_rw.connect(daiWhileSigner).transfer( RECEIVER, 200 );
@@ -60,8 +60,8 @@ describe("", function () {
         // 调用者账户owner：安全转账100 转出账户：DAI_WHALE    目标账户：RECEIVER 
         await erc20_rw.connect(owner).transferFrom( DAI_WHALE, RECEIVER, 100 );
 
-        console.log("after  transform balanceWhale   :",await erc20_rw.balanceOf(DAI_WHALE));
-        console.log("after  transform balanceReceiver:",await erc20_rw.balanceOf(RECEIVER));
+        console.log("after  transform balanceWhale   :",ethers.utils.formatEther(await erc20_rw.balanceOf(DAI_WHALE)));
+        console.log("after  transform balanceReceiver:",ethers.utils.formatEther(await erc20_rw.balanceOf(RECEIVER)));
     });
   });
 });
