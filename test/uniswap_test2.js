@@ -54,10 +54,10 @@ describe("", function () {
         TO
         // ,
         // { value: value2 }
-        // ,
-        // {
-        //   from: DAI_WHALE
-        // }
+        ,
+        {
+          from: DAI_WHALE
+        }
       );
 
       console.log("out", await tokenOut.balanceOf(TO));
