@@ -31,7 +31,7 @@ describe("", function () {
         })
       const daiWhileSigner= await ethers.getSigner(DAI_WHALE);
 
-      console.log("0000");
+      console.log("0000",testUniswap);
 
       const tokenIn = await ethers.getContractAt("IERC20",DAI);
       const tokenOut = await ethers.getContractAt("IERC20",WBTC);
@@ -41,12 +41,14 @@ describe("", function () {
 
       // await tokenIn.approve(testUniswap.address, AMOUNT_IN);
       console.log("22222");
-      const value = ethers.utils.parseUnits("1", "ether");
-      
+      const value = ethers.utils.parseUnits("2", "ether");
+      const amountIn22 = ethers.utils.parseUnits("0.02", "ether");
+
       await testUniswap.swap(
         tokenIn.address,
         tokenOut.address,
-        AMOUNT_IN,
+        amountIn22,
+        // AMOUNT_IN,
         AMOUNT_OUT_IN,
         TO,
         { value }
