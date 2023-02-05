@@ -40,7 +40,7 @@ describe("", function () {
       console.log("11111");
 
 
-      await tokenIn.approve(testUniswap.address, AMOUNT_IN);
+      await tokenIn.approve(testUniswap.address, 10000);
       console.log("22222");
       const value2 = ethers.utils.parseUnits("2", "ether");
       const amountIn22 = ethers.utils.parseUnits("0.02", "ether");
