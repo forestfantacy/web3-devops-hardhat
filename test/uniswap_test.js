@@ -63,18 +63,15 @@ describe("", function () {
         console.log('nextMidPrice',trade.nextMidPrice.toSignificant(6));
         //万分之五滑点
         const slippageTolerance = new Percent('50', '10000');
-        //计算当前滑点下的换出的DAI最小值
+
+        //TODO  计算当前滑点下的换出的DAI最小值 trade.minimumAmountOut 返回值只有1/10？？？
         const minimumAmountOut = Math.floor(trade.minimumAmountOut(slippageTolerance).toExact());
         console.log("5/1000 slippageTolerance,minimumAmountOut:",minimumAmountOut);
 
-
-        const minimumAmountOut2 = ethers.BigNumber.from(trade.minimumAmountOut(slippageTolerance).raw.toString());
-        const amountOutMinHex = minimumAmountOut2.toHexString();
-        console.log("minimumAmountOut2:",minimumAmountOut2,"amountOutMinHex",amountOutMinHex);
-
-        const value22 = ethers.BigNumber.from(trade.inputAmount.raw.toString());
-        const value22Hex = value22.toHexString();
-        console.log("value22:",value22,"value22Hex",value22Hex);
+        //TODO  转hex后交易扣除数量不对，不转就正常
+        const office4Input = ethers.BigNumber.from(trade.inputAmount.raw.toString());
+        const office4InputHex = office4Input.toHexString();
+        console.log("输入原值:",office4Input,"官网提示转换成hex",office4InputHex);
 
         // const signer = new ethers.Wallet("PRIVATE_KEY");
         // const account = signer.connect(provider);
@@ -102,7 +99,6 @@ describe("", function () {
         console.log("before swap balanceReceiver:",ethers.utils.formatEther(await daiToken.balanceOf(to)));
         const tx = await uniwap.swapExactETHForTokens(
           minimumAmountOut,
-          //amountOutMinHex,
           path,
           to,
           deadline,
