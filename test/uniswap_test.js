@@ -70,7 +70,7 @@ describe("", function () {
         const amountOutMinHex = minimumAmountOut2Hex.toHexString();
         console.log("minimumAmountOut2:",minimumAmountOut2,"amountOutMinHex",amountOutMinHex);
 
-        const value22 = ethers.BigNumber.from(trade.inputAmount.raw.toString());
+        const value22 = ethers.BigNumber.from(trade.inputAmount.raw().toString());
         const value22Hex = value22.toHexString();
         console.log("value22:",value22,"value22Hex",value22Hex);
 
