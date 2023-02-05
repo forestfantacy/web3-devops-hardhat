@@ -24,7 +24,7 @@ contract TestUniswap{
         IERC20(_tokenIn).approve(UNISWAP_V2_ROUTER, _amountIn);
 
         address[] memory path;
-        path = new address[3];
+        path = new address[](3);
         path[0] = _tokenIn;
         path[1] = WETH;
         path[2] = _tokenOut;
