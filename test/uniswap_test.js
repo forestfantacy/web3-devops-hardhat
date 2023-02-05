@@ -48,19 +48,31 @@ describe("", function () {
 
         //定义交易路径，这里的路径只有1个pair  输入eth，输出dai
         const route = new Route([pair],weth);
+
+        // The mid price, in the context of Uniswap, is the price that reflects the ratio of reserves in one or more pairs. 
+        // There are three ways we can think about this price. Perhaps most simply, 
+        // it defines the relative value of one token in terms of the other. 
+        // It also represents the price at which you could theoretically trade an infinitesimal amount (ε) of one token for the other. Finally, it can be interpreted as the current market-clearing or fair value price of the assets.
         console.log('route.midPrice',route.midPrice.toSignificant(6));
 
         //定义交易，输入1个ether
         const trade = new Trade(route, new TokenAmount(weth, "100000000000000000"), TradeType.EXACT_INPUT);
-        //计算产出/投入 即 DAI/ETHER
+        //平均交易价格  the execution price of a trade, as the ratio of assets sent/received.The execution price represents the average DAI/WETH price for this trade.
         console.log('executionPrice',trade.executionPrice.toSignificant(6));
-        //计算假设没有滑点的中间价
+        //当前交易完成后的交易价格
         console.log('nextMidPrice',trade.nextMidPrice.toSignificant(6));
         //万分之五滑点
         const slippageTolerance = new Percent('50', '10000');
         //计算当前滑点下的换出的DAI最小值
         const minimumAmountOut = Math.floor(trade.minimumAmountOut(slippageTolerance).toExact());
         console.log("5/1000 slippageTolerance,minimumAmountOut:",minimumAmountOut);
+        const minimumAmountOut2 = ethers.BigNumber.from(trade.minimumAmountOut(slippageTolerance).raw().toString());
+        const amountOutMinHex = minimumAmountOut2Hex.toHexString();
+        console.log("minimumAmountOut2:",minimumAmountOut2,"amountOutMinHex",amountOutMinHex);
+
+        const value22 = ethers.BigNumber.from(trade.inputAmount.raw.toString());
+        const value22Hex = value22.toHexString();
+        console.log("value22:",value22,"value22Hex",value22Hex);
 
         // const signer = new ethers.Wallet("PRIVATE_KEY");
         // const account = signer.connect(provider);
