@@ -39,18 +39,21 @@ describe("", function () {
       console.log("11111");
 
 
-      await tokenIn.approve(testUniswap.address, AMOUNT_IN);
+      // await tokenIn.approve(testUniswap.address, AMOUNT_IN);
       console.log("22222");
-
+      const value = ethers.utils.parseUnits("1", "ether");
+      
       await testUniswap.swap(
         tokenIn.address,
         tokenOut.address,
         AMOUNT_IN,
         AMOUNT_OUT_IN,
         TO,
-        {
-          from: DAI_WHALE
-        }
+        { value }
+        // ,
+        // {
+        //   from: DAI_WHALE
+        // }
       );
 
       console.log("out", await tokenOut.balanceOf(TO));
