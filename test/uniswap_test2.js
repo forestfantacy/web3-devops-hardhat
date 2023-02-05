@@ -23,6 +23,7 @@ describe("", function () {
 
       const TestUniswap = await ethers.getContractFactory("TestUniswap");
       const testUniswap = await TestUniswap.deploy();
+      await testUniswap.deployed();
 
       //冒充DAI_WHALE
       await network.provider.request({
@@ -31,7 +32,7 @@ describe("", function () {
         })
       const daiWhileSigner= await ethers.getSigner(DAI_WHALE);
 
-      console.log("0000",testUniswap);
+      // console.log("0000",testUniswap);
 
       const tokenIn = await ethers.getContractAt("IERC20",DAI);
       const tokenOut = await ethers.getContractAt("IERC20",WBTC);
@@ -50,8 +51,9 @@ describe("", function () {
         amountIn22,
         // AMOUNT_IN,
         AMOUNT_OUT_IN,
-        TO,
-        { value: value2 }
+        TO
+        // ,
+        // { value: value2 }
         // ,
         // {
         //   from: DAI_WHALE
