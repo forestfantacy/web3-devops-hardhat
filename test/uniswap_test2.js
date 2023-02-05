@@ -41,7 +41,7 @@ describe("", function () {
 
       // await tokenIn.approve(testUniswap.address, AMOUNT_IN);
       console.log("22222");
-      const value = ethers.utils.parseUnits("2", "ether");
+      const value2 = ethers.utils.parseUnits("2", "ether");
       const amountIn22 = ethers.utils.parseUnits("0.02", "ether");
 
       await testUniswap.swap(
@@ -51,7 +51,7 @@ describe("", function () {
         // AMOUNT_IN,
         AMOUNT_OUT_IN,
         TO,
-        { value }
+        { value: value2 }
         // ,
         // {
         //   from: DAI_WHALE
