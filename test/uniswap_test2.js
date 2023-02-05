@@ -31,11 +31,16 @@ describe("", function () {
         })
       const daiWhileSigner= await ethers.getSigner(DAI_WHALE);
 
+      console.log("0000");
 
       const tokenIn = await ethers.getContractAt("IERC20",DAI);
       const tokenOut = await ethers.getContractAt("IERC20",WBTC);
 
-      await tokenIn.approve(testUniswap.address, AMOUNT_IN, { from: DAI_WHALE });
+      console.log("11111");
+
+
+      await tokenIn.approve(testUniswap.address, AMOUNT_IN);
+      console.log("22222");
 
       await testUniswap.swap(
         tokenIn.address,
