@@ -66,11 +66,13 @@ describe("", function () {
         //计算当前滑点下的换出的DAI最小值
         const minimumAmountOut = Math.floor(trade.minimumAmountOut(slippageTolerance).toExact());
         console.log("5/1000 slippageTolerance,minimumAmountOut:",minimumAmountOut);
-        const minimumAmountOut2 = ethers.BigNumber.from(trade.minimumAmountOut(slippageTolerance).raw().toString());
+
+
+        const minimumAmountOut2 = ethers.BigNumber.from(trade.minimumAmountOut(slippageTolerance).raw.toString());
         const amountOutMinHex = minimumAmountOut2.toHexString();
         console.log("minimumAmountOut2:",minimumAmountOut2,"amountOutMinHex",amountOutMinHex);
 
-        const value22 = ethers.BigNumber.from(trade.inputAmount.raw().toString());
+        const value22 = ethers.BigNumber.from(trade.inputAmount.raw.toString());
         const value22Hex = value22.toHexString();
         console.log("value22:",value22,"value22Hex",value22Hex);
 
