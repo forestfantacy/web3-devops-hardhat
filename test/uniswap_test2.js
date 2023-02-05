@@ -43,21 +43,19 @@ describe("", function () {
       // await tokenIn.approve(testUniswap.address, AMOUNT_IN);
       console.log("22222");
       const value2 = ethers.utils.parseUnits("2", "ether");
-      const amountIn22 = ethers.utils.parseUnits("0.02", "ether");
+      const amountIn22 = 100;
 
       await testUniswap.swap(
         tokenIn.address,
         tokenOut.address,
-        amountIn22,
-        // AMOUNT_IN,
+        // amountIn22,
+        AMOUNT_IN,
         AMOUNT_OUT_IN,
         TO
-        // ,
-        // { value: value2 }
-        // ,
-        // {
-        //   from: DAI_WHALE
-        // }
+        ,
+        {
+          from: DAI_WHALE
+        }
       );
 
       console.log("out", await tokenOut.balanceOf(TO));
