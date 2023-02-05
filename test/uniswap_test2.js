@@ -45,20 +45,19 @@ describe("", function () {
       const value2 = ethers.utils.parseUnits("2", "ether");
       const amountIn22 = ethers.utils.parseUnits("0.02", "ether");
 
-      await testUniswap.connect(daiWhileSigner).swap(
+      await testUniswap.swap(
         tokenIn.address,
         tokenOut.address,
         100,
-        // AMOUNT_IN,
         AMOUNT_OUT_IN,
         TO
-        // ,
-        // {
-        //   from: DAI_WHALE
-        // }
+        ,
+        {
+          from: DAI_WHALE
+        }
         );
-        //Error: Contract with a Signer cannot override from (operation="overrides.from", code=UNSUPPORTED_OPERATION, version=contracts/5.7.0)
-
+        //视频里加from Error: Contract with a Signer cannot override from (operation="overrides.from", code=UNSUPPORTED_OPERATION, version=contracts/5.7.0)
+        //去掉from    Error: VM Exception while processing transaction: reverted with reason string 'UniswapV2Library: INSUFFICIENT_INPUT_AMOUNT'
       console.log("out", await tokenOut.balanceOf(TO));
 
     });
