@@ -107,10 +107,13 @@ describe("", function () {
           deadline,
           { value }
         );
-        console.log("after  swap balanceReceiver:",await daiToken.balanceOf(to));
-        console.log("after  swap balanceWhale   :",await provider.getBalance(DAI_WHALE));
         const receipt = await tx.wait();
         console.log(`Transaction was mined in block ${receipt.blockNumber}`);
+        
+        console.log("after  swap balanceReceiver:",await daiToken.balanceOf(to));
+        console.log("after  swap balanceWhale   :",await provider.getBalance(DAI_WHALE));
+
+
     });
   });
 });
