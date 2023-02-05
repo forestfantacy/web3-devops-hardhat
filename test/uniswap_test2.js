@@ -40,22 +40,24 @@ describe("", function () {
       console.log("11111");
 
 
-      // await tokenIn.approve(testUniswap.address, AMOUNT_IN);
+      await tokenIn.approve(testUniswap.address, AMOUNT_IN);
       console.log("22222");
       const value2 = ethers.utils.parseUnits("2", "ether");
-      const amountIn22 = 100;
+      const amountIn22 = ethers.utils.parseUnits("0.02", "ether");
 
       await testUniswap.swap(
         tokenIn.address,
         tokenOut.address,
-        // amountIn22,
-        AMOUNT_IN,
+        100,
+        // AMOUNT_IN,
         AMOUNT_OUT_IN,
         TO
-        ,
-        {
-          from: DAI_WHALE
-        }
+        // ,
+        // { value: value2 }
+        // ,
+        // {
+        //   from: DAI_WHALE
+        // }
       );
 
       console.log("out", await tokenOut.balanceOf(TO));
