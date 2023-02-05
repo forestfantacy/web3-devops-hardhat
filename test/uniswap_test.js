@@ -67,7 +67,7 @@ describe("", function () {
         const minimumAmountOut = Math.floor(trade.minimumAmountOut(slippageTolerance).toExact());
         console.log("5/1000 slippageTolerance,minimumAmountOut:",minimumAmountOut);
         const minimumAmountOut2 = ethers.BigNumber.from(trade.minimumAmountOut(slippageTolerance).raw().toString());
-        const amountOutMinHex = minimumAmountOut2Hex.toHexString();
+        const amountOutMinHex = minimumAmountOut2.toHexString();
         console.log("minimumAmountOut2:",minimumAmountOut2,"amountOutMinHex",amountOutMinHex);
 
         const value22 = ethers.BigNumber.from(trade.inputAmount.raw().toString());
