@@ -9,6 +9,7 @@ npm install --save-dev hardhat
 npm install --save ethers@5.7.2
 npm install @uniswap/sdk@3.0.3
 npm install dotenv
+npm install --save bn.js
 
 npm install @uniswap/v2-core
 npm install @uniswap/v2-periphery

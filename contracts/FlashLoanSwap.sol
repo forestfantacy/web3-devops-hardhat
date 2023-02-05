@@ -26,6 +26,8 @@ contract FlashLoanSwap is IUniswapV2Callee {
   receive() external payable {}
 
   function testFlashSwap(uint _amount) external {
+
+    //WETH, USDC
     address pair = factory.getPair(WETH, USDC);
     require(pair != address(0), "!pair");
 

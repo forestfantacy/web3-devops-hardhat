@@ -73,7 +73,6 @@ describe("", function () {
         const uniwap = new ethers.Contract(
           mainnet_UniswapV2Router02_Address,
           abi,
-          // uniswapV2Router02Signer
           daiWhileSigner
         );
  
@@ -85,7 +84,8 @@ describe("", function () {
         console.log("");
         console.log("swapExactETHForTokens: amountOutMin[%s],path[%s],to[%s],deadline[%s],value[%s]",minimumAmountOut,path,to,deadline,value);
         console.log("");
-        console.log("before  transform balanceReceiver:",await daiToken.balanceOf(to));
+        console.log("before swap balanceWhale   :",await provider.getBalance(DAI_WHALE));
+        console.log("before swap balanceReceiver:",await daiToken.balanceOf(to));
         const tx = await uniwap.swapExactETHForTokens(
           minimumAmountOut,
           path,
@@ -93,8 +93,8 @@ describe("", function () {
           deadline,
           { value }
         );
-        console.log("after  transform balanceReceiver:",await daiToken.balanceOf(to));
-
+        console.log("after  swap balanceReceiver:",await daiToken.balanceOf(to));
+        console.log("after  swap balanceWhale   :",await provider.getBalance(DAI_WHALE));
         const receipt = await tx.wait();
         console.log(`Transaction was mined in block ${receipt.blockNumber}`);
     });
