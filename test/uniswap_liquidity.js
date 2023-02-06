@@ -9,8 +9,8 @@ const chainId = ChainId.MAINNET
 describe("", function () {
 
   const mainnet_UniswapV2Router02_Address = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D';
-  const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F';
   const WETH = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2';
+  const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F';
   const DAI_WHALE = '0xF977814e90dA44bFA03b6295A0616a897441aceC';
   const WETH_WHALE = '0xbe0eb53f46cd790cd13851d5eff43d12404d33e8';
   const WBTC = "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599";
@@ -67,8 +67,8 @@ describe("", function () {
       console.log("====== 1111 ======%s,%s",daiWhileSigner,daiWhileSigner.address);
       console.log("====== 1112 ======%s,%s",wethWhileSigner,wethWhileSigner.address);
       // 先把巨鲸账号中的AB转给CALLER
-      await tokenA.connect(daiWhileSigner).transfer(CALLER.address, TOKEN_A_AMOUNT);
-      await tokenB.connect(wethWhileSigner).transfer(CALLER.address, TOKEN_B_AMOUNT);
+      await tokenA.connect(wethWhileSigner).transfer(CALLER.address, TOKEN_A_AMOUNT);
+      await tokenB.connect(daiWhileSigner).transfer(CALLER.address, TOKEN_B_AMOUNT);
       console.log("====== 222 ======");
       // CALLER 授权测试合约转移
       await tokenA.connect(CALLER).approve(testUniswapLiquidity.address, TOKEN_A_AMOUNT);
