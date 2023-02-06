@@ -37,16 +37,18 @@ describe("", function () {
       const TOKEN_A_AMOUNT = AMOUNT_18;
       const TOKEN_B_AMOUNT = AMOUNT_18;
 
-      //冒充DAI_WHALE
-      await network.provider.request({
-      method: "hardhat_impersonateAccount",
-      params: [DAI_WHALE]
-      })
       //WETH_WHALE
       await network.provider.request({
         method: "hardhat_impersonateAccount",
         params: [WETH_WHALE]
         })
+
+      //冒充DAI_WHALE
+      await network.provider.request({
+      method: "hardhat_impersonateAccount",
+      params: [DAI_WHALE]
+      })
+
 
       // await network.provider.request({
       //   method: "hardhat_impersonateAccount",
@@ -61,8 +63,8 @@ describe("", function () {
       // console.log("====== 001 ======%s,%s",tokenA,TOKEN_A);
       // console.log("====== 002 ======%s,%s",tokenB,TOKEN_B);
       //给巨鲸账号转ether用于支付交易手续费
-      console.log("TOKEN_A_WHALE:[%s] [%s]",TOKEN_A_WHALE,await provider.getBalance(TOKEN_A_WHALE));
-      console.log("TOKEN_B_WHALE:[%s] [%s]",TOKEN_B_WHALE,await provider.getBalance(TOKEN_B_WHALE));
+      console.log("TOKEN_A_WHALE:[%s] [%s]",WETH_WHALE,await provider.getBalance(WETH_WHALE));
+      console.log("TOKEN_B_WHALE:[%s] [%s]",DAI_WHALE,await provider.getBalance(DAI_WHALE));
       // console.log("====== 111 ======%s,%s",CALLER,CALLER.address);
       // console.log("====== 1111 ======%s,%s",daiWhileSigner,daiWhileSigner.address);
       // console.log("====== 1112 ======%s,%s",wethWhileSigner,wethWhileSigner.address);
