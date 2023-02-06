@@ -26,8 +26,8 @@ contract TestUniswapLiquidity{
         console.log("before _tokenB balanceOf",tokenB.balanceOf(address(this)));
         console.log("before _tokenA balanceOf",tokenA.balanceOf(msg.sender));
         console.log("before _tokenB balanceOf",tokenB.balanceOf(msg.sender));
-        tokenA.transferFrom(msg.sender, address(this), _amountA);
-        tokenB.transferFrom(msg.sender, address(this), _amountB);
+        tokenA.transferFrom(msg.sender, address(this), 100);
+        tokenB.transferFrom(msg.sender, address(this), 100);
         console.log("after  _tokenA balanceOf",tokenA.balanceOf(address(this)));
         console.log("after  _tokenB balanceOf",tokenB.balanceOf(address(this)));
 
@@ -73,5 +73,15 @@ contract TestUniswapLiquidity{
         );
         emit Log("amountA", amountA);
         emit Log("amountB", amountB);
+    }
+
+    // 调用者没有payload回调
+    receive() external payable {
+
+    }
+
+    // 调用者带有payload时回调
+    fallback() external payable{
+
     }
 }
