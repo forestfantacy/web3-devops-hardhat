@@ -23,12 +23,8 @@ contract TestUniswapLiquidity{
         IERC20 tokenA = IERC20(_tokenA);
         IERC20 tokenB = IERC20(_tokenB);
 
-        console.log("before _tokenA balanceOf",tokenA.balanceOf(msg.sender));
-        console.log("before _tokenB balanceOf",tokenB.balanceOf(msg.sender));
         tokenA.transferFrom(msg.sender, address(this), 100);
         tokenB.transferFrom(msg.sender, address(this), 100);
-        console.log("after _tokenA balanceOf",tokenA.balanceOf(msg.sender));
-        console.log("after _tokenB balanceOf",tokenB.balanceOf(msg.sender));
         console.log("TestUniswapLiquidity  _tokenA balanceOf",tokenA.balanceOf(address(this)));
         console.log("TestUniswapLiquidity  _tokenB balanceOf",tokenB.balanceOf(address(this)));
 
@@ -38,8 +34,8 @@ contract TestUniswapLiquidity{
         (uint256 amountA, uint256 amountB, uint256 liquidity) = IUniswapV2Router(ROUTERV2).addLiquidity(
             _tokenA,
             _tokenB,
-            _amountA,
-            _amountB,
+            100,
+            100,
             1,
             1,
             address(this),
