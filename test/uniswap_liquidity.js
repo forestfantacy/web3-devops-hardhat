@@ -72,20 +72,16 @@ describe("", function () {
       const tokenWETH = new ethers.Contract(WETH, abi, await ethers.getSigner(WETH));
       const tokenDAI = new ethers.Contract(DAI, abi, await ethers.getSigner(DAI));
 
-      // console.log("====== 001 ======%s,%s",tokenA,TOKEN_A);
-      // console.log("====== 002 ======%s,%s",tokenB,TOKEN_B);
       //给巨鲸账号转ether用于支付交易手续费
       console.log("TOKEN_A_WHALE:[%s] [%s]",WETH_WHALE,await provider.getBalance(WETH_WHALE));
       console.log("TOKEN_B_WHALE:[%s] [%s]",DAI_WHALE,await provider.getBalance(DAI_WHALE));
-      // console.log("====== 111 ======%s,%s",CALLER,CALLER.address);
-      // console.log("====== 1111 ======%s,%s",daiWhileSigner,daiWhileSigner.address);
-      // console.log("====== 1112 ======%s,%s",wethWhileSigner,wethWhileSigner.address);
 
       // 先把巨鲸账号中的AB转给CALLER
-              //IERC20 接口
-
-      await tokenWETH.connect(wethWhileSigner).transfer(CALLER.address, 100);
       await tokenDAI.connect(daiWhileSigner).transfer(CALLER.address, 100);
+
+      console.log("====== 111 ======");
+      await tokenWETH.connect(wethWhileSigner).transfer(CALLER.address, 100);
+
       console.log("====== 222 ======");
       // CALLER 授权测试合约转移
       await tokenWETH.connect(CALLER).approve(testUniswapLiquidity.address, 100);
