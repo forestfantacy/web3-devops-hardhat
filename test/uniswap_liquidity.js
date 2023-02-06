@@ -3,13 +3,14 @@ const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers/withArgs");
 const { expect } = require("chai");
 const BN = require('bn.js');
 const { ethers,network } = require("hardhat");
-const { ChainId, Fetcher, WETH, Route, Trade, TokenAmount, TradeType, Percent } = require('@uniswap/sdk');
+const { ChainId, Fetcher, Route, Trade, TokenAmount, TradeType, Percent } = require('@uniswap/sdk');
 const chainId = ChainId.MAINNET
 
 describe("", function () {
 
   const mainnet_UniswapV2Router02_Address = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D';
   const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F';
+  const WETH = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2';
   const DAI_WHALE = '0xF977814e90dA44bFA03b6295A0616a897441aceC';
   const WETH_WHALE = '0xbe0eb53f46cd790cd13851d5eff43d12404d33e8';
   const WBTC = "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599";
@@ -29,8 +30,8 @@ describe("", function () {
       const [owner, otherAccount] = await ethers.getSigners();
       const CALLER = owner;
       const TOKEN_A = WETH;
-      const TOKEN_A_WHALE = WETH_WHALE;
       const TOKEN_B = DAI;
+      const TOKEN_A_WHALE = WETH_WHALE;
       const TOKEN_B_WHALE = DAI_WHALE;
       const TOKEN_A_AMOUNT = AMOUNT_18;
       const TOKEN_B_AMOUNT = AMOUNT_18;
@@ -56,7 +57,8 @@ describe("", function () {
 
       const tokenA = await ethers.getContractAt("IERC20",TOKEN_A);
       const tokenB = await ethers.getContractAt("IERC20",TOKEN_B);
-  
+      console.log("====== 001 ======%s,%s",tokenA,TOKEN_A);
+      console.log("====== 002 ======%s,%s",tokenB,TOKEN_B);
       //给巨鲸账号转ether用于支付交易手续费
       console.log("TOKEN_A_WHALE:[%s] [%s]",TOKEN_A_WHALE,await provider.getBalance(TOKEN_A_WHALE));
       console.log("TOKEN_B_WHALE:[%s] [%s]",TOKEN_B_WHALE,await provider.getBalance(TOKEN_B_WHALE));
