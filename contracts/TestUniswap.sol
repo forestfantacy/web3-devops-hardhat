@@ -25,7 +25,7 @@ contract TestUniswap{
         console.log("after  tokenIn balanceOf",tokenIn.balanceOf(address(this)));
 
         // 授权uniswap routerv2 合约能够转出调用者账号的token，后续 routerv2 将使用 transfer(someone,ammount) 转出
-        IERC20(_tokenIn).approve(UNISWAP_V2_ROUTER, _amountIn);
+        tokenIn.approve(UNISWAP_V2_ROUTER, _amountIn);
 
         address[] memory path;
         path = new address[](3);
@@ -33,11 +33,16 @@ contract TestUniswap{
         path[1] = WETH;
         path[2] = _tokenOut;
 
+        
+        
+        
+        
+        
         console.log("_amountIn:[%s],_amountOutMin:[%s],_to:[%s]", _amountIn, _amountOutMin, _to);
         // 调用主网routerv2合约进行交易
         IUniswapV2Router(UNISWAP_V2_ROUTER).swapExactTokensForTokens(
-            _amountIn,
-            _amountOutMin,
+            900000,
+            1,
             path,
             _to,
             block.timestamp
