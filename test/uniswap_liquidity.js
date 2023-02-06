@@ -12,8 +12,9 @@ describe("", function () {
   const WETH = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2';
   const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F';
   const DAI_WHALE = '0xF977814e90dA44bFA03b6295A0616a897441aceC';
-  const WETH_WHALE = '0xbe0eb53f46cd790cd13851d5eff43d12404d33e8';
-  const WBTC = "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599";
+
+  const WETH_WHALE = '0xF04a5cC80B1E94C69B48f5ee68a08CD2F09A7c3E';
+
 
   const AMOUNT_18 = ethers.utils.parseUnits("1", "ether");//
   // const AMOUNT_18 = new BN(10).pow(new BN(18)).mul(new BN(1000000));//
@@ -30,10 +31,7 @@ describe("", function () {
 
       const [owner, otherAccount] = await ethers.getSigners();
       const CALLER = owner;
-      // const TOKEN_A = WETH;
-      // const TOKEN_B = DAI;
-      // const TOKEN_A_WHALE = WETH_WHALE;
-      // const TOKEN_B_WHALE = DAI_WHALE;
+
       const TOKEN_A_AMOUNT = AMOUNT_18;
       const TOKEN_B_AMOUNT = AMOUNT_18;
 
