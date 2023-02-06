@@ -40,12 +40,12 @@ describe("", function () {
       console.log("11111");
 
 
-      await tokenIn.connect(DAI_WHALE).approve(testUniswap.address, 10000);
+      await tokenIn.connect(daiWhileSigner).approve(testUniswap.address, 10000);
       console.log("22222");
       const value2 = ethers.utils.parseUnits("2", "ether");
       const amountIn22 = ethers.utils.parseUnits("0.02", "ether");
 
-      await testUniswap.connect(DAI_WHALE).swap(
+      await testUniswap.connect(daiWhileSigner).swap(
         tokenIn.address,
         tokenOut.address,
         10,
