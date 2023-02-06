@@ -22,14 +22,15 @@ contract TestUniswapLiquidity{
     ) external{
         IERC20 tokenA = IERC20(_tokenA);
         IERC20 tokenB = IERC20(_tokenB);
-        console.log("before _tokenA balanceOf",tokenA.balanceOf(address(this)));
-        console.log("before _tokenB balanceOf",tokenB.balanceOf(address(this)));
+
         console.log("before _tokenA balanceOf",tokenA.balanceOf(msg.sender));
         console.log("before _tokenB balanceOf",tokenB.balanceOf(msg.sender));
         tokenA.transferFrom(msg.sender, address(this), 100);
         tokenB.transferFrom(msg.sender, address(this), 100);
-        console.log("after  _tokenA balanceOf",tokenA.balanceOf(address(this)));
-        console.log("after  _tokenB balanceOf",tokenB.balanceOf(address(this)));
+        console.log("after _tokenA balanceOf",tokenA.balanceOf(msg.sender));
+        console.log("after _tokenB balanceOf",tokenB.balanceOf(msg.sender));
+        console.log("TestUniswapLiquidity  _tokenA balanceOf",tokenA.balanceOf(address(this)));
+        console.log("TestUniswapLiquidity  _tokenB balanceOf",tokenB.balanceOf(address(this)));
 
         tokenA.approve(ROUTERV2, _amountA);
         tokenB.approve(ROUTERV2, _amountB);
