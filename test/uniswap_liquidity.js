@@ -58,8 +58,20 @@ describe("", function () {
       const wethWhileSigner= await ethers.getSigner(WETH_WHALE);
       const daiWhileSigner= await ethers.getSigner(DAI_WHALE);
 
-      const tokenWETH = await ethers.getContractAt("IERC20",WETH);
-      const tokenDAI = await ethers.getContractAt("IERC20",DAI);
+
+      const abi = [
+          "function balanceOf(address owner) view returns (uint256)",
+          "function decimals() view returns (uint8)",
+          "function symbol() view returns (string)",
+          "function transfer(address to, uint amount) returns (bool)",
+          "function transferFrom(address from, address to, uint value) external returns (bool)",
+          "function allowance(address owner, address spender) external view returns (uint)",
+          "function approve(address spender, uint value) external returns (bool)",
+          "event Transfer(address indexed from, address indexed to, uint amount)"
+      ];
+      const tokenWETH = new ethers.Contract(WETH, abi, await ethers.getSigner(WETH));
+      const tokenDAI = new ethers.Contract(DAI, abi, await ethers.getSigner(DAI));
+
       // console.log("====== 001 ======%s,%s",tokenA,TOKEN_A);
       // console.log("====== 002 ======%s,%s",tokenB,TOKEN_B);
       //给巨鲸账号转ether用于支付交易手续费
@@ -70,6 +82,8 @@ describe("", function () {
       // console.log("====== 1112 ======%s,%s",wethWhileSigner,wethWhileSigner.address);
 
       // 先把巨鲸账号中的AB转给CALLER
+              //IERC20 接口
+
       await tokenWETH.connect(wethWhileSigner).transfer(CALLER.address, 100);
       await tokenDAI.connect(daiWhileSigner).transfer(CALLER.address, 100);
       console.log("====== 222 ======");
