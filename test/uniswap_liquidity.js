@@ -15,7 +15,8 @@ describe("", function () {
   const WETH_WHALE = '0xbe0eb53f46cd790cd13851d5eff43d12404d33e8';
   const WBTC = "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599";
 
-  const AMOUNT_18 = new BN(10).pow(new BN(18)).mul(new BN(1000000));//
+  const AMOUNT_18 = ethers.utils.parseUnits("1", "ether");//
+  // const AMOUNT_18 = new BN(10).pow(new BN(18)).mul(new BN(1000000));//
   const AMOUNT_OUT_IN = 1;
   const TO = "0xa894026777645913E829fB2AE3dCd6252ee13e01";
 
