@@ -35,23 +35,15 @@ contract TestUniswap{
         path[2] = _tokenOut;
 
         console.log("_amountIn:[%s],_amountOutMin:[%s],_to:[%s]", _amountIn, _amountOutMin, _to);
-        // 调用主网routerv2合约进行交易
-        // IUniswapV2Router(UNISWAP_V2_ROUTER).swapExactTokensForTokens(
-        //     _amountIn,
-        //     _amountOutMin,
-        //     path,
-        //     _to,
-        //     block.timestamp
-        // );
+
         address[] memory path2;
         path2 = new address[](2);
         path2[0] = WETH;
         path2[1] = DAI;
         uint etherNum = 100;
-        string memory fn = "function swapExactETHForTokens(uint,address[],address,uint))";
-        (bool success, bytes memory data) = address(UNISWAP_V2_ROUTER).call{value: etherNum}(abi.encodeWithSignature(fn,1,path2,_to,etherNum));
-        console.log("success:[%s]]",success);
+        string memory fn = "swapExactETHForTokens(uint,address[],address,uint))";
+        (bool success, bytes memory data) = payable(UNISWAP_V2_ROUTER).call{value: etherNum}(abi.encodeWithSignature(fn,1,path2,_to,block.timestamp));
+        console.log("======swapExactETHForTokens:[%s]]",success);
+      
     }
 }
-
-
