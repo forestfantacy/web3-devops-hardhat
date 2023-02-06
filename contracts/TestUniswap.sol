@@ -3,6 +3,7 @@ pragma solidity =0.6.6;
 
 import '@uniswap/v2-periphery/contracts/interfaces/IERC20.sol';
 import './interfaces/IUniswapV2Router.sol';
+import "hardhat/console.sol";
 
 contract TestUniswap{
 
@@ -29,6 +30,7 @@ contract TestUniswap{
         path[1] = WETH;
         path[2] = _tokenOut;
 
+        console.log("_amountIn:[%s],_amountOutMin:[%s],_to:[%s]", _amountIn, _amountOutMin, _to);
         // 调用主网routerv2合约进行交易
         IUniswapV2Router(UNISWAP_V2_ROUTER).swapExactTokensForTokens(
             _amountIn,
