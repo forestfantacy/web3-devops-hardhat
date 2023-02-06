@@ -80,8 +80,8 @@ describe("", function () {
       console.log("TOKEN_B_WHALE:[%s] [%s]",DAI_WHALE,await provider.getBalance(DAI_WHALE));
 
       // 先把巨鲸账号中的AB转给CALLER
-      await tokenDAI.connect(daiWhileSigner).transfer(CALLER, 100);
-      await tokenWETH.connect(wethWhileSigner).transfer(CALLER, 100);
+      await tokenDAI.connect(daiWhileSigner).transfer(CALLER.address, 100);
+      await tokenWETH.connect(wethWhileSigner).transfer(CALLER.address, 100);
 
       console.log("====== 222 ======");
       // CALLER 授权测试合约转移
