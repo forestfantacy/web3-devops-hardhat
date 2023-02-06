@@ -13,7 +13,7 @@ describe("", function () {
   const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F';
   const DAI_WHALE = '0xF977814e90dA44bFA03b6295A0616a897441aceC';
 
-  const WETH_WHALE = '0xF04a5cC80B1E94C69B48f5ee68a08CD2F09A7c3E';
+  const WETH_WHALE = '0xed1840223484483c0cb050e6fc344d1ebf0778a9';
 
 
   const AMOUNT_18 = ethers.utils.parseUnits("1", "ether");//
@@ -70,7 +70,11 @@ describe("", function () {
       const tokenWETH = new ethers.Contract(WETH, abi, await ethers.getSigner(WETH));
       const tokenDAI = new ethers.Contract(DAI, abi, await ethers.getSigner(DAI));
 
-      //给巨鲸账号转ether用于支付交易手续费
+      //给WETH巨鲸账号转ether用于支付交易手续费
+      await daiWhileSigner.sendTransaction({
+        to: wethWhileSigner.address,
+        value: ethers.utils.parseUnits("1000", "ether"),
+      });
       console.log("TOKEN_A_WHALE:[%s] [%s]",WETH_WHALE,await provider.getBalance(WETH_WHALE));
       console.log("TOKEN_B_WHALE:[%s] [%s]",DAI_WHALE,await provider.getBalance(DAI_WHALE));
 
