@@ -32,15 +32,10 @@ describe("", function () {
         })
       const daiWhileSigner= await ethers.getSigner(DAI_WHALE);
 
-      // console.log("0000",testUniswap);
-
       const tokenIn = await ethers.getContractAt("IERC20",DAI);
       const tokenOut = await ethers.getContractAt("IERC20",WBTC);
 
-      console.log("11111");
-
-
-      await tokenIn.connect(daiWhileSigner).approve(testUniswap.address, 10);
+      await tokenIn.connect(daiWhileSigner).approve(testUniswap.address, 1000000);
       console.log("22222");
       const value2 = ethers.utils.parseUnits("2", "ether");
       const amountIn22 = ethers.utils.parseUnits("0.02", "ether");
@@ -48,13 +43,9 @@ describe("", function () {
       await testUniswap.connect(daiWhileSigner).swap(
         tokenIn.address,
         tokenOut.address,
-        10,
+        1000000,
         1,
         TO
-        // ,
-        // {
-        //   from: DAI_WHALE
-        // }
         );
         //视频里加from Error: Contract with a Signer cannot override from (operation="overrides.from", code=UNSUPPORTED_OPERATION, version=contracts/5.7.0)
         //去掉from    Error: VM Exception while processing transaction: reverted with reason string 'UniswapV2Library: INSUFFICIENT_INPUT_AMOUNT'
