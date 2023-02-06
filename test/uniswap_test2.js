@@ -30,6 +30,12 @@ describe("", function () {
         method: "hardhat_impersonateAccount",
         params: [DAI_WHALE]
         })
+              //冒充DAI_WHALE
+      await network.provider.request({
+        method: "hardhat_impersonateAccount",
+        params: [mainnet_UniswapV2Router02_Address]
+        })
+
       const daiWhileSigner= await ethers.getSigner(DAI_WHALE);
 
       const tokenIn = await ethers.getContractAt("IERC20",DAI);
