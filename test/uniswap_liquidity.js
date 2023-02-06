@@ -70,9 +70,7 @@ describe("", function () {
       const tokenWETH = new ethers.Contract(WETH, abi, await ethers.getSigner(WETH));
       const tokenDAI = new ethers.Contract(DAI, abi, await ethers.getSigner(DAI));
 
-      console.log("====== 000 ======");
       //给WETH巨鲸账号转ether用于支付交易手续费
-
       // await owner.sendTransaction({
       //   to: wethWhileSigner.address,  接收者余额必须大于零，为零报错：Error: cannot estimate gas; transaction may fail or may require manual gas limit 
       //   value: ethers.utils.parseUnits("1000", "ether"),
@@ -81,37 +79,37 @@ describe("", function () {
       console.log("TOKEN_A_WHALE:[%s] [%s]",WETH_WHALE,await provider.getBalance(WETH_WHALE));
       console.log("TOKEN_B_WHALE:[%s] [%s]",DAI_WHALE,await provider.getBalance(DAI_WHALE));
 
-      // // 先把巨鲸账号中的AB转给CALLER
-      // await tokenDAI.connect(daiWhileSigner).transfer('0x8C8D7C46219D9205f056f28fee5950aD564d7465', 100);
+      // 先把巨鲸账号中的AB转给CALLER
+      await tokenDAI.connect(daiWhileSigner).transfer('0x8C8D7C46219D9205f056f28fee5950aD564d7465', 100);
 
-      // console.log("====== 111 ======");
-      // await tokenWETH.connect(wethWhileSigner).transfer('0x8C8D7C46219D9205f056f28fee5950aD564d7465', 100);
+      console.log("====== 111 ======");
+      await tokenWETH.connect(wethWhileSigner).transfer('0x8C8D7C46219D9205f056f28fee5950aD564d7465', 100);
 
-      // console.log("====== 222 ======");
-      // // CALLER 授权测试合约转移
-      // await tokenWETH.connect(CALLER).approve(testUniswapLiquidity.address, 100);
-      // await tokenDAI.connect(CALLER).approve(testUniswapLiquidity.address, 100);
-      // console.log("====== 333 ======");
-      // let tx = await testUniswapLiquidity.connect(CALLER).addLiquidity(
-      //   tokenWETH.address,
-      //   tokenDAI.address,
-      //   100,
-      //   100
-      // );
-      // console.log("====== add liquidity ======");
-      // for(const log of tx.logs){
-      //   console.log(`${log.args.messge} ${log.args.val}`);
-      // }
+      console.log("====== 222 ======");
+      // CALLER 授权测试合约转移
+      await tokenWETH.connect(CALLER).approve(testUniswapLiquidity.address, 100);
+      await tokenDAI.connect(CALLER).approve(testUniswapLiquidity.address, 100);
+      console.log("====== 333 ======");
+      let tx = await testUniswapLiquidity.connect(CALLER).addLiquidity(
+        tokenWETH.address,
+        tokenDAI.address,
+        100,
+        100
+      );
+      console.log("====== add liquidity ======");
+      for(const log of tx.logs){
+        console.log(`${log.args.messge} ${log.args.val}`);
+      }
 
-      // tx = await testUniswapLiquidity.connect(CALLER).removeLiquidity(
-      //   tokenWETH.address,
-      //   tokenDAI.address
-      // );
+      tx = await testUniswapLiquidity.connect(CALLER).removeLiquidity(
+        tokenWETH.address,
+        tokenDAI.address
+      );
 
-      // console.log("====== remove liquidity ======");
-      // for(const log of tx.logs){
-      //   console.log(`${log.args.messge} ${log.args.val}`);
-      // }
+      console.log("====== remove liquidity ======");
+      for(const log of tx.logs){
+        console.log(`${log.args.messge} ${log.args.val}`);
+      }
 
 
 
