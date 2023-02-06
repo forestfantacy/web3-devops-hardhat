@@ -13,7 +13,7 @@ describe("", function () {
   const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F';
   const DAI_WHALE = '0xF977814e90dA44bFA03b6295A0616a897441aceC';
 
-  const WETH_WHALE = '0xed1840223484483c0cb050e6fc344d1ebf0778a9';
+  const WETH_WHALE = '0xc2fE73Ce94A372Dae70A64E0D75A58A039227e2a';
 
 
   const AMOUNT_18 = ethers.utils.parseUnits("1", "ether");//
@@ -73,12 +73,10 @@ describe("", function () {
       console.log("====== 000 ======");
       //给WETH巨鲸账号转ether用于支付交易手续费
 
-      await owner.sendTransaction({
-        // to: wethWhileSigner.address,
-        // to: '0x8C8D7C46219D9205f056f28fee5950aD564d7465',
-        to: '0xeBec795c9c8bBD61FFc14A6662944748F299cAcf',
-        value: ethers.utils.parseUnits("1000", "ether"),
-      });
+      // await owner.sendTransaction({
+      //   to: wethWhileSigner.address,  接收者余额必须大于零，为零报错：Error: cannot estimate gas; transaction may fail or may require manual gas limit 
+      //   value: ethers.utils.parseUnits("1000", "ether"),
+      // });
 
       console.log("TOKEN_A_WHALE:[%s] [%s]",WETH_WHALE,await provider.getBalance(WETH_WHALE));
       console.log("TOKEN_B_WHALE:[%s] [%s]",DAI_WHALE,await provider.getBalance(DAI_WHALE));
