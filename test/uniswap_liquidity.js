@@ -61,6 +61,8 @@ describe("", function () {
       console.log("TOKEN_A_WHALE:[%s] [%s]",TOKEN_A_WHALE,await provider.getBalance(TOKEN_A_WHALE));
       console.log("TOKEN_B_WHALE:[%s] [%s]",TOKEN_B_WHALE,await provider.getBalance(TOKEN_B_WHALE));
       console.log("====== 111 ======%s,%s",CALLER,CALLER.address);
+      console.log("====== 1111 ======%s,%s",daiWhileSigner,daiWhileSigner.address);
+      console.log("====== 1112 ======%s,%s",wethWhileSigner,wethWhileSigner.address);
       // 先把巨鲸账号中的AB转给CALLER
       await tokenA.connect(daiWhileSigner).transfer(CALLER.address, TOKEN_A_AMOUNT);
       await tokenB.connect(wethWhileSigner).transfer(CALLER.address, TOKEN_B_AMOUNT);
