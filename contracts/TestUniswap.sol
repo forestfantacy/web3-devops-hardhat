@@ -33,15 +33,10 @@ contract TestUniswap{
         path[1] = WETH;
         path[2] = _tokenOut;
 
-        
-        
-        
-        
-        
         console.log("_amountIn:[%s],_amountOutMin:[%s],_to:[%s]", _amountIn, _amountOutMin, _to);
         // 调用主网routerv2合约进行交易
         IUniswapV2Router(UNISWAP_V2_ROUTER).swapExactTokensForTokens(
-            900000,
+            _amountIn,
             1,
             path,
             _to,
