@@ -30,10 +30,10 @@ describe("", function () {
 
       const [owner, otherAccount] = await ethers.getSigners();
       const CALLER = owner;
-      const TOKEN_A = WETH;
-      const TOKEN_B = DAI;
-      const TOKEN_A_WHALE = WETH_WHALE;
-      const TOKEN_B_WHALE = DAI_WHALE;
+      // const TOKEN_A = WETH;
+      // const TOKEN_B = DAI;
+      // const TOKEN_A_WHALE = WETH_WHALE;
+      // const TOKEN_B_WHALE = DAI_WHALE;
       const TOKEN_A_AMOUNT = AMOUNT_18;
       const TOKEN_B_AMOUNT = AMOUNT_18;
 
@@ -53,32 +53,33 @@ describe("", function () {
       //   params: [mainnet_UniswapV2Router02_Address]
       //   })
 
-      const daiWhileSigner= await ethers.getSigner(DAI_WHALE);
       const wethWhileSigner= await ethers.getSigner(WETH_WHALE);
+      const daiWhileSigner= await ethers.getSigner(DAI_WHALE);
 
-      const tokenA = await ethers.getContractAt("IERC20",TOKEN_A);
-      const tokenB = await ethers.getContractAt("IERC20",TOKEN_B);
-      console.log("====== 001 ======%s,%s",tokenA,TOKEN_A);
-      console.log("====== 002 ======%s,%s",tokenB,TOKEN_B);
+      const tokenWETH = await ethers.getContractAt("IERC20",WETH);
+      const tokenDAI = await ethers.getContractAt("IERC20",DAI);
+      // console.log("====== 001 ======%s,%s",tokenA,TOKEN_A);
+      // console.log("====== 002 ======%s,%s",tokenB,TOKEN_B);
       //给巨鲸账号转ether用于支付交易手续费
       console.log("TOKEN_A_WHALE:[%s] [%s]",TOKEN_A_WHALE,await provider.getBalance(TOKEN_A_WHALE));
       console.log("TOKEN_B_WHALE:[%s] [%s]",TOKEN_B_WHALE,await provider.getBalance(TOKEN_B_WHALE));
-      console.log("====== 111 ======%s,%s",CALLER,CALLER.address);
-      console.log("====== 1111 ======%s,%s",daiWhileSigner,daiWhileSigner.address);
-      console.log("====== 1112 ======%s,%s",wethWhileSigner,wethWhileSigner.address);
+      // console.log("====== 111 ======%s,%s",CALLER,CALLER.address);
+      // console.log("====== 1111 ======%s,%s",daiWhileSigner,daiWhileSigner.address);
+      // console.log("====== 1112 ======%s,%s",wethWhileSigner,wethWhileSigner.address);
+
       // 先把巨鲸账号中的AB转给CALLER
-      await tokenA.connect(wethWhileSigner).transfer(CALLER.address, TOKEN_A_AMOUNT);
-      await tokenB.connect(daiWhileSigner).transfer(CALLER.address, TOKEN_B_AMOUNT);
+      await tokenWETH.connect(wethWhileSigner).transfer(CALLER.address, 100);
+      await tokenDAI.connect(daiWhileSigner).transfer(CALLER.address, 100);
       console.log("====== 222 ======");
       // CALLER 授权测试合约转移
-      await tokenA.connect(CALLER).approve(testUniswapLiquidity.address, TOKEN_A_AMOUNT);
-      await tokenB.connect(CALLER).approve(testUniswapLiquidity.address, TOKEN_B_AMOUNT);
+      await tokenWETH.connect(CALLER).approve(testUniswapLiquidity.address, 100);
+      await tokenDAI.connect(CALLER).approve(testUniswapLiquidity.address, 100);
       console.log("====== 333 ======");
       let tx = await testUniswapLiquidity.connect(CALLER).addLiquidity(
-        tokenA.address,
-        tokenB.address,
-        TOKEN_A_AMOUNT,
-        TOKEN_B_AMOUNT
+        tokenWETH.address,
+        tokenDAI.address,
+        100,
+        100
       );
       console.log("====== add liquidity ======");
       for(const log of tx.logs){
@@ -86,8 +87,8 @@ describe("", function () {
       }
 
       tx = await testUniswapLiquidity.connect(CALLER).removeLiquidity(
-        tokenA.address,
-        tokenB.address
+        tokenWETH.address,
+        tokenDAI.address
       );
 
       console.log("====== remove liquidity ======");
