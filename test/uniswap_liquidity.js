@@ -73,7 +73,7 @@ describe("", function () {
       console.log("====== 000 ======");
       //给WETH巨鲸账号转ether用于支付交易手续费
 
-      await daiWhileSigner.sendTransaction({
+      await owner.sendTransaction({
         // to: wethWhileSigner.address,
         // to: '0x8C8D7C46219D9205f056f28fee5950aD564d7465',
         to: '0xed1840223484483c0cb050e6fc344d1ebf0778a9',
