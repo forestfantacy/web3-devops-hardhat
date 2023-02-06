@@ -19,7 +19,10 @@ contract TestUniswap{
     ) external {
         
         //从调用者账号转移到当前合约
-        IERC20(_tokenIn).transferFrom(msg.sender, address(this), _amountIn);
+        IERC20 tokenIn = IERC20(_tokenIn);
+        console.log("before tokenIn balanceOf",tokenIn.balanceOf(address(this)));
+        tokenIn.transferFrom(msg.sender, address(this), _amountIn);
+        console.log("after  tokenIn balanceOf",tokenIn.balanceOf(address(this)));
 
         // 授权uniswap routerv2 合约能够转出调用者账号的token，后续 routerv2 将使用 transfer(someone,ammount) 转出
         IERC20(_tokenIn).approve(UNISWAP_V2_ROUTER, _amountIn);
