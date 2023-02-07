@@ -1,10 +1,5 @@
-const {time,loadFixture,} = require("@nomicfoundation/hardhat-network-helpers");
-const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers/withArgs");
-const { expect } = require("chai");
 const BN = require('bn.js');
 const { ethers,network } = require("hardhat");
-const { ChainId, Fetcher, Route, Trade, TokenAmount, TradeType, Percent } = require('@uniswap/sdk');
-const chainId = ChainId.MAINNET
 
 describe("", function () {
 
