@@ -11,6 +11,7 @@ contract TestUniswapLiquidity{
     address private constant FACTORY = 0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f;
     address private constant ROUTERV2 = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D;
     address private constant WETH = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
+    uint minAmount = 1; // 0 ok
 
     event Log(string message, uint256 val);
 
@@ -36,8 +37,8 @@ contract TestUniswapLiquidity{
             _tokenB,
             _amountA,
             _amountB,
-            0,
-            0,
+            minAmount,
+            minAmount,
             address(this),
             block.timestamp
         );
@@ -66,8 +67,8 @@ contract TestUniswapLiquidity{
             _tokenA,
             _tokenB,
             liquidity,
-            0,
-            0,
+            minAmount,
+            minAmount,
             address(this),
             block.timestamp
         );

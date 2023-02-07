@@ -32,10 +32,9 @@ describe("", function () {
       const [owner, otherAccount] = await ethers.getSigners();
       const CALLER = owner;
 
-      const TOKEN_A_AMOUNT = 1;
-      const TOKEN_B_AMOUNT = 1;
-      // const TOKEN_A_AMOUNT = 1;
-      // const TOKEN_B_AMOUNT = 1700;
+      // 添加流动性取值大一点，太低报错：UniswapV2: INSUFFICIENT_LIQUIDITY_MINTED 或者 赎回流动性报错 UniswapV2: INSUFFICIENT_LIQUIDITY_BURNED
+      const TOKEN_A_AMOUNT = 1000000;
+      const TOKEN_B_AMOUNT = 1000000;
 
       //WETH_WHALE
       await network.provider.request({
