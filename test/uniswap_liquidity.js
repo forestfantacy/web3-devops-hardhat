@@ -32,8 +32,8 @@ describe("", function () {
       const [owner, otherAccount] = await ethers.getSigners();
       const CALLER = owner;
 
-      const TOKEN_A_AMOUNT = 1000;
-      const TOKEN_B_AMOUNT = 1000;
+      const TOKEN_A_AMOUNT = 1001;
+      const TOKEN_B_AMOUNT = 1001;
       // const TOKEN_A_AMOUNT = 1;
       // const TOKEN_B_AMOUNT = 1700;
 
