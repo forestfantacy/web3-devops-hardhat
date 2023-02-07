@@ -8,7 +8,7 @@ const chainId = ChainId.MAINNET
 
 describe("", function () {
 
-  const USDC_WHALE = '0x28f1d5FE896dB571Cba7679863DD4E1272d49eAc';
+  const USDC_WHALE = '0xcba0074a77A3aD623A80492Bb1D8d932C62a8bab';
   const TOKEN_BORROW_USDC = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48';
   const DECIMALS = 6;
   const FUND_AMOUNT = 1000000; //贷款资金
