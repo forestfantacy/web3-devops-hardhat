@@ -95,19 +95,20 @@ describe("", function () {
         TOKEN_B_AMOUNT
       );
       console.log("====== add liquidity ======");
-      for(const log of tx.logs){
-        console.log(`${log.args.messge} ${log.args.val}`);
-      }
+      console.log("====== add liquidity ======",tx.logs);
+      // for(const log of tx.logs){
+      //   console.log(`${log.args.messge} ${log.args.val}`);
+      // }
 
       tx = await testUniswapLiquidity.connect(CALLER).removeLiquidity(
         tokenWETH.address,
         tokenDAI.address
       );
 
-      console.log("====== remove liquidity ======");
-      for(const log of tx.logs){
-        console.log(`${log.args.messge} ${log.args.val}`);
-      }
+      console.log("====== remove liquidity ======",tx.logs);
+      // for(const log of tx.logs){
+      //   console.log(`${log.args.messge} ${log.args.val}`);
+      // }
 
 
 

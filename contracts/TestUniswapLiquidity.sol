@@ -41,7 +41,10 @@ contract TestUniswapLiquidity{
             address(this),
             block.timestamp
         );
-
+        address pair = IUniswapV2Factory(FACTORY).getPair(_tokenA, _tokenB);
+        uint256 addLiquidity = IERC20(pair).balanceOf(address(this));
+        console.log("addLiquidity:%s of %s",addLiquidity,address(this));
+        
         emit Log("amountA", amountA);
         emit Log("amountB", amountB);
         emit Log("liquidity", liquidity);
