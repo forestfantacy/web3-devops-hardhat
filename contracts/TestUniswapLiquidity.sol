@@ -26,8 +26,6 @@ contract TestUniswapLiquidity{
 
         tokenA.transferFrom(msg.sender, address(this), _amountA);
         tokenB.transferFrom(msg.sender, address(this), _amountB);
-        console.log("TestUniswapLiquidity  _tokenA balanceOf",tokenA.balanceOf(address(this)));
-        console.log("TestUniswapLiquidity  _tokenB balanceOf",tokenB.balanceOf(address(this)));
 
         tokenA.approve(ROUTERV2, _amountA);
         tokenB.approve(ROUTERV2, _amountB);
@@ -43,8 +41,11 @@ contract TestUniswapLiquidity{
             block.timestamp
         );
         address pair = IUniswapV2Factory(FACTORY).getPair(_tokenA, _tokenB);
-        uint256 addLiquidity = IERC20(pair).balanceOf(address(this));
-        console.log("addLiquidity:%s of %s",addLiquidity,pair);
+
+        console.log("added Liquidity:",liquidity);
+
+        //uniswap里没有根据token地址找交易对的方法，目前看最好的方式就是通过sdk取回来
+        console.log("trade pair address:",pair);
 
         emit Log("amountA", amountA);
         emit Log("amountB", amountB);
