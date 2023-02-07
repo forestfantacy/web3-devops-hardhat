@@ -32,8 +32,8 @@ describe("", function () {
       const [owner, otherAccount] = await ethers.getSigners();
       const CALLER = owner;
 
-      const TOKEN_A_AMOUNT = AMOUNT_18;
-      const TOKEN_B_AMOUNT = AMOUNT_18;
+      const TOKEN_A_AMOUNT = 1;
+      const TOKEN_B_AMOUNT = 1700;
 
       //WETH_WHALE
       await network.provider.request({
@@ -80,19 +80,19 @@ describe("", function () {
       console.log("TOKEN_B_WHALE:[%s] [%s]",DAI_WHALE,await provider.getBalance(DAI_WHALE));
 
       // 先把巨鲸账号中的AB转给CALLER
-      await tokenDAI.connect(daiWhileSigner).transfer(CALLER.address, 100);
-      await tokenWETH.connect(wethWhileSigner).transfer(CALLER.address, 100);
+      await tokenWETH.connect(wethWhileSigner).transfer(CALLER.address, TOKEN_A_AMOUNT);
+      await tokenDAI.connect(daiWhileSigner).transfer(CALLER.address, TOKEN_B_AMOUNT);
 
       console.log("====== 222 ======");
       // CALLER 授权测试合约转移
-      await tokenWETH.connect(CALLER).approve(testUniswapLiquidity.address, 100);
-      await tokenDAI.connect(CALLER).approve(testUniswapLiquidity.address, 100);
+      await tokenWETH.connect(CALLER).approve(testUniswapLiquidity.address, TOKEN_A_AMOUNT);
+      await tokenDAI.connect(CALLER).approve(testUniswapLiquidity.address, TOKEN_B_AMOUNT);
       console.log("====== 333 ======");
       let tx = await testUniswapLiquidity.connect(CALLER).addLiquidity(
         tokenWETH.address,
         tokenDAI.address,
-        100,
-        100
+        TOKEN_A_AMOUNT,
+        TOKEN_B_AMOUNT
       );
       console.log("====== add liquidity ======");
       for(const log of tx.logs){
