@@ -47,7 +47,13 @@ describe("", function () {
       params: [DAI_WHALE]
       })
 
+            //冒充DAI_WHALE
+            await network.provider.request({
+              method: "hardhat_impersonateAccount",
+              params: ['0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11']
+              })
 
+      
       // await network.provider.request({
       //   method: "hardhat_impersonateAccount",
       //   params: [mainnet_UniswapV2Router02_Address]
