@@ -8,21 +8,11 @@ const chainId = ChainId.MAINNET
 
 describe("", function () {
 
-  const mainnet_UniswapV2Router02_Address = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D';
-
-  const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F';
-  const DAI_WHALE = '0xF977814e90dA44bFA03b6295A0616a897441aceC';
-
-  const USDC_WHALE = '0x1B7BAa734C00298b9429b518D621753Bb0f6efF2';
+  const USDC_WHALE = '0x28f1d5FE896dB571Cba7679863DD4E1272d49eAc';
   const TOKEN_BORROW_USDC = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48';
   const DECIMALS = 6;
   const FUND_AMOUNT = 1000000; //贷款资金
   const BORROW_AMOUNT = 2000000; //贷款代币
-
-  const AMOUNT_18 = ethers.utils.parseUnits("1", "ether");//
-  // const AMOUNT_18 = new BN(10).pow(new BN(18)).mul(new BN(1000000));//
-  const AMOUNT_OUT_IN = 1;
-  const TO = "0xa894026777645913E829fB2AE3dCd6252ee13e01";
 
   describe("testxxx", function () {
 
