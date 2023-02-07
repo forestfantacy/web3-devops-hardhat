@@ -36,8 +36,8 @@ contract TestUniswapLiquidity{
             _tokenB,
             _amountA,
             _amountB,
-            1,
-            1,
+            0,
+            0,
             address(this),
             block.timestamp
         );
@@ -66,8 +66,8 @@ contract TestUniswapLiquidity{
             _tokenA,
             _tokenB,
             liquidity,
-            1,
-            1,
+            0,
+            0,
             address(this),
             block.timestamp
         );
