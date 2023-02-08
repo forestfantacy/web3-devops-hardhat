@@ -25,6 +25,7 @@ contract FlashLoanSwap is IUniswapV2Callee {
 
   receive() external payable {}
 
+  //当前合约已经收到客户端的WETH Token
   function testFlashSwap(uint _amount) external {
 
     //WETH, USDC
@@ -38,6 +39,10 @@ contract FlashLoanSwap is IUniswapV2Callee {
 
     bytes memory data = abi.encode(WETH, _amount);
 
+    //还是不理解：这里的逻辑应该 
+    // 把当前合约中的WETH转给交易对，  这个好办，服务端 修改 WETH 的sender账号余额，
+    // 换出USDC，                   修改USDC 当前合约  账号余额，
+// 更新交易对储备
     IUniswapV2Pair(pair).swap(amount0Out, amount1Out, address(this), data);
   }
 

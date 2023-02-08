@@ -12,25 +12,21 @@ describe("Lock", function () {
       //@uniswap/v2-periphery/contracts/interfaces/IWETH.sol
       const weth = await ethers.getContractAt("IWETH", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2");
       
-      console.log("11   :",ethers.utils.formatEther(await owner.getBalance()));
-
-      // WETH 合约方法：给调用者 owner 添加 WETH
-      await weth.deposit({
-        value: AmountToSwap
-      });
-
-      console.log("22   :",ethers.utils.formatEther(await owner.getBalance()));
       const flashLoanSwapSigner= await ethers.getSigner(flashLoanSwap.address);
-      console.log("33   :",ethers.utils.formatEther(await flashLoanSwapSigner.getBalance()));
-
-      // etherjs api： 当前账户 给测试合约 发送10个以太
+      console.log("0 flashLoanSwapSigner.getBalance:",ethers.utils.formatEther(await flashLoanSwapSigner.getBalance()));
+      // etherjs api： 转10个以太付gas
       await owner.sendTransaction({
         to: flashLoanSwap.address,
         value: AmountToSwap
       });
-      console.log("44   :",ethers.utils.formatEther(await flashLoanSwapSigner.getBalance()));
+      console.log("1 flashLoanSwapSigner.getBalance:",ethers.utils.formatEther(await flashLoanSwapSigner.getBalance()));
 
-      // 当前账户owner 给测试合约 发送10个weth token
+      //发给flashLoanSwap N个WETH Token
+      // 1：先发给调用者owner  N个WETH
+      await weth.deposit({
+        value: AmountToSwap
+      });
+      // 2.当前账户owner 给测试合约 转N个WETH
       await weth.transfer(flashLoanSwap.address, AmountToSwap);
       const wethERC20 = await ethers.getContractAt("IERC20", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2");
       const balanceBeforeSwap = await wethERC20.balanceOf(flashLoanSwap.address);
