@@ -22,7 +22,7 @@ contract TestUniswapV2FlashSwap is IUniswapV2Callee{
         // 当前池中必须有交易对
         require(pair != address(0), "!pair");
 
-        
+
         // 构建token0、token1 
         address token0 = IUniswapV2Pair(pair).token0(); //USDC
         address token1 = IUniswapV2Pair(pair).token1(); //WETH
@@ -31,6 +31,10 @@ contract TestUniswapV2FlashSwap is IUniswapV2Callee{
         uint amount0Out = _tokenBorrow == token0 ? _amount : 0; //_amount
         uint amount1Out = _tokenBorrow == token1 ? _amount : 0; //0
 
+
+        console.log("pair [%s], token0 [%s] token1 [%s]", pair, token0, token1);
+        console.log("_amount [%s] amount0Out [%s] amount1Out [%s]", _amount, amount0Out, amount1Out);
+        
         //不为空则触发闪电贷流程
         bytes memory data = abi.encode(_tokenBorrow, _amount);
 
