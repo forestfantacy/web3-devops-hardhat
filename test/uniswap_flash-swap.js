@@ -31,13 +31,11 @@ describe("", function () {
       const tokenUSDC = new ethers.Contract(USDC, abi, await ethers.getSigner(USDC));
       const usdcWhaleSigner= await ethers.getSigner(USDC_WHALE);
 
-      //向USDC_WHALE转1个ether,用于支付交易手续费
-
-      //把USDC_WHAL TOKEN转给测试合约
-      const bal = await tokenUSDC.balanceOf(USDC_WHALE);
-      console.log("usdc whale balance:%s, fund:%s", bal, FUND_AMOUNT);
+      //先把USDC_WHAL USDC转给测试合约，
+      console.log("usdc whale balance:%s, fund:%s", await tokenUSDC.balanceOf(USDC_WHALE), FUND_AMOUNT);
       await tokenUSDC.connect(usdcWhaleSigner).transfer(testUniswapV2FlashSwap.address, FUND_AMOUNT);
-      console.log("to testUniswapV2FlashSwap %s token", FUND_AMOUNT);
+      console.log("usdc whale transfer to testUniswapV2FlashSwap %s usdc", FUND_AMOUNT);
+
       // 执行flash swap 质押
       const tx = await testUniswapV2FlashSwap.connect(usdcWhaleSigner).testFlashSwap(tokenUSDC.address, HYPOTHECATED_USDC_AMOUNT);
       const receipt = await tx.wait();
