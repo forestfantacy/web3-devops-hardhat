@@ -63,7 +63,7 @@ contract TestUniswapV2FlashSwap is IUniswapV2Callee{
         (address hypothecatedToken, uint amount) = abi.decode(_data, (address, uint));
 
         console.log("cur contract [%s] has borrow [%s] WETH by [%s] USDC", address(this), IERC20(hypothecatedToken).balanceOf(address(this)), amount);
-
+console.log("token1 balance:",IERC20(token1).balanceOf(address(this)));
         // 3%
         uint fee = (amount * 3 / 997) + 1;
         // 归还金额加上手续费
