@@ -15,28 +15,26 @@ contract TestUniswapV2FlashSwap is IUniswapV2Callee{
 
     event Log(string message, uint val);
 
-    function testFlashSwap(address _tokenBorrow, uint _amount) external {
+    function testFlashSwap(address hypothecatedToken, uint amount) external {
 
         // 构造借出交易对 USDC-WETH
-        address pair = IUniswapV2Factory(FACTORY).getPair(_tokenBorrow, WETH);
+        address pair = IUniswapV2Factory(FACTORY).getPair(hypothecatedToken, WETH);
         // 当前池中必须有交易对
         require(pair != address(0), "!pair");
-
 
         // 构建token0、token1 
         address token0 = IUniswapV2Pair(pair).token0(); //USDC
         address token1 = IUniswapV2Pair(pair).token1(); //WETH
 
         // 构建换出token数量   
-        uint amount0Out = _tokenBorrow == token0 ? _amount : 0; //_amount
-        uint amount1Out = _tokenBorrow == token1 ? _amount : 0; //0
-
+        uint amount0Out = hypothecatedToken == token0 ? amount : 0; //_amount
+        uint amount1Out = hypothecatedToken == token1 ? amount : 0; //0
 
         console.log("pair [%s], token0 [%s] token1 [%s]", pair, token0, token1);
-        console.log("_amount [%s] amount0Out [%s] amount1Out [%s]", _amount, amount0Out, amount1Out);
+        console.log("_amount [%s] amount0Out [%s] amount1Out [%s]", amount, amount0Out, amount1Out);
         
         //不为空则触发闪电贷流程
-        bytes memory data = abi.encode(_tokenBorrow, _amount);
+        bytes memory data = abi.encode(hypothecatedToken, amount);
 
         /**
          * 交易对借出指定数量USDC放到当前合约地址
@@ -62,9 +60,10 @@ contract TestUniswapV2FlashSwap is IUniswapV2Callee{
         // 确认回调发起者是当前合约地址
         require(_sender == address(this), "!sender");
 
-        (address _tokenBorrow, uint amount) = abi.decode(_data, (address, uint));
+        (address hypothecatedToken, uint amount) = abi.decode(_data, (address, uint));
 
-        console.log("cur contract [%s] has borrow [%s] usdc", address(this), IERC20(_tokenBorrow).balanceOf(address(this)));
+        console.log("cur contract [%s] has borrow [%s] WETH by [%s] USDC", address(this), IERC20(hypothecatedToken).balanceOf(address(this)), amount);
+
         // 3%
         uint fee = (amount * 3 / 997) + 1;
         // 归还金额加上手续费
