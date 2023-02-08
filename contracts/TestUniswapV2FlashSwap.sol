@@ -43,7 +43,7 @@ contract TestUniswapV2FlashSwap is IUniswapV2Callee{
          * @param _amount1  0  有可能同时为空或者同时有值吗？
          * @param _data 
          */
-        IUniswapV2Pair(pair).swap(amount0Out, amount1Out, address(this), data);
+        IUniswapV2Pair(pair).swap(amount0Out, 1000000, address(this), data);
     }
 
     // 回调接口
@@ -77,8 +77,8 @@ contract TestUniswapV2FlashSwap is IUniswapV2Callee{
         emit Log("amount to repay", amountToRepay);
 
         // 当前合约把 USDC 还给交易对
-        // IERC20(hypothecatedToken).transfer(pair, amountToRepay);
+        IERC20(hypothecatedToken).transfer(pair, amountToRepay);
 
-        // 如果不还怎么检查并报错？
+        // 如果不还怎么检查并报错 UniswapV2: INSUFFICIENT_INPUT_AMOUNT
     }
 }
