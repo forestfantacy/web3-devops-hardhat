@@ -77,7 +77,7 @@ contract TestUniswapV2FlashSwap is IUniswapV2Callee{
         emit Log("amount to repay", amountToRepay);
 
         // 当前合约把 USDC 还给交易对
-        IERC20(hypothecatedToken).transfer(pair, amountToRepay);
+        // IERC20(hypothecatedToken).transfer(pair, amountToRepay);
 
         // 如果不还怎么检查并报错？
     }
