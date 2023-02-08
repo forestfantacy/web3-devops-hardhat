@@ -57,12 +57,17 @@ contract FlashLoanSwap is IUniswapV2Callee {
     weth_usdt_path[1] = USDT;
     weth_usdt_path[2] = LINK;
     weth_usdt_path[3] = WETH;
-    IERC20(WETH).approve(address(router), amount);
-    router.swapExactTokensForTokens(amount, 0, weth_usdt_path, address(this), now + 1e8);
+    IERC20(WETH).approve(address(router), amount);//可以删掉
+    // 已借到WETH,尝试套利   
+    uint[] memory swapOutamounts = router.swapExactTokensForTokens(amount, 0, weth_usdt_path, address(this), now + 1e8);
+    console.log("swapOutamounts[0]",swapOutamounts[0]);
 
-    // RETURN WETH
+    //如果有富余，打入自己的账户
+
+    // 归还 WETH，另外付 千分之三个USDC 手续费
     uint fee = ((amount * 3) / 997) + 1;
     uint amountToRepay = amount + fee;
     IERC20(tokenBorrow).transfer(pair, amountToRepay);
+
   }
 }

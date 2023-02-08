@@ -6,8 +6,8 @@ describe("", function () {
   const USDC = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48';
   const USDC_WHALE = '0xf9211FfBD6f741771393205c1c3F6D7d28B90F03';
 
-  const FUND_AMOUNT = 1000000; //贷款资金
-  const BORROW_AMOUNT = 2000000; //贷款代币
+  const FUND_AMOUNT = 1000000; //6位小数
+  const HYPOTHECATED_USDC_AMOUNT = 2000000; 
 
   describe("testxxx", function () {
 
@@ -38,8 +38,8 @@ describe("", function () {
       console.log("usdc whale balance:%s, fund:%s", bal, FUND_AMOUNT);
       await tokenUSDC.connect(usdcWhaleSigner).transfer(testUniswapV2FlashSwap.address, FUND_AMOUNT);
       console.log("to testUniswapV2FlashSwap %s token", FUND_AMOUNT);
-      // 执行flash swap
-      const tx = await testUniswapV2FlashSwap.connect(usdcWhaleSigner).testFlashSwap(tokenUSDC.address, BORROW_AMOUNT);
+      // 执行flash swap 质押
+      const tx = await testUniswapV2FlashSwap.connect(usdcWhaleSigner).testFlashSwap(tokenUSDC.address, HYPOTHECATED_USDC_AMOUNT);
       const receipt = await tx.wait();
       console.log(`Transaction was mined in block ${receipt.blockNumber}`);
     });

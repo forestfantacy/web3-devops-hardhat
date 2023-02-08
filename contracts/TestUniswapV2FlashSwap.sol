@@ -17,23 +17,30 @@ contract TestUniswapV2FlashSwap is IUniswapV2Callee{
 
     function testFlashSwap(address _tokenBorrow, uint _amount) external {
 
-        // 构造借出交易对
+        // 构造借出交易对 USDC-WETH
         address pair = IUniswapV2Factory(FACTORY).getPair(_tokenBorrow, WETH);
         // 当前池中必须有交易对
         require(pair != address(0), "!pair");
 
-        // 得到token0、token1
-        address token0 = IUniswapV2Pair(pair).token0();
-        address token1 = IUniswapV2Pair(pair).token1();
+        
+        // 构建token0、token1 
+        address token0 = IUniswapV2Pair(pair).token0(); //USDC
+        address token1 = IUniswapV2Pair(pair).token1(); //WETH
 
-        // 得到换出token数量
-        uint amount0Out = _tokenBorrow == token0 ? _amount : 0;
-        uint amount1Out = _tokenBorrow == token1 ? _amount : 0;
+        // 构建换出token数量   
+        uint amount0Out = _tokenBorrow == token0 ? _amount : 0; //_amount
+        uint amount1Out = _tokenBorrow == token1 ? _amount : 0; //0
 
         //不为空则触发闪电贷流程
         bytes memory data = abi.encode(_tokenBorrow, _amount);
 
-        // 兑换 10个token，0个eth，把结果发给当前合约
+        /**
+         * 交易对借出指定数量USDC放到当前合约地址
+         * @param _sender 交易对
+         * @param _amount0  _amount
+         * @param _amount1  0  有可能同时为空或者同时有值吗？
+         * @param _data 
+         */
         IUniswapV2Pair(pair).swap(amount0Out, amount1Out, address(this), data);
     }
 
@@ -48,19 +55,27 @@ contract TestUniswapV2FlashSwap is IUniswapV2Callee{
         address token1 = IUniswapV2Pair(msg.sender).token1();
         address pair = IUniswapV2Factory(FACTORY).getPair(token0, token1);
         require(msg.sender == pair, "!pair");
+        // 确认回调发起者是当前合约地址
         require(_sender == address(this), "!sender");
 
         (address _tokenBorrow, uint amount) = abi.decode(_data, (address, uint));
 
+        console.log("cur contract [%s] has borrow [%s] usdc", address(this), IERC20(_tokenBorrow).balanceOf(address(this)));
+        // 3%
         uint fee = (amount * 3 / 997) + 1;
+        // 归还金额加上手续费
         uint amountToRepay = amount + fee;
 
+        console.log("amount [%s] fee[%s] ", amount, fee);
         emit Log("amount", amount);
         emit Log("_amount0", _amount0);
         emit Log("_amount1", _amount1);
         emit Log("fee", fee);
         emit Log("amount to repay", amountToRepay);
 
+        // 当前合约把 USDC 还给交易对
         IERC20(_tokenBorrow).transfer(pair, amountToRepay);
+
+        // 如果不还怎么检查并报错？
     }
 }
