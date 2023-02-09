@@ -31,7 +31,7 @@ contract TestUniswapV2FlashSwap is IUniswapV2Callee{
         uint amount1Out = hypothecatedToken == token1 ? amount : 0; //0
 
         console.log("pair [%s], token0 [%s] token1 [%s]", pair, token0, token1);
-        console.log("_amount [%s] amount0Out [%s] amount1Out [%s]", amount, amount0Out, amount1Out);
+        console.log("amount0Out [%s] amount1Out [%s]", amount0Out, amount1Out);
         
         //不为空则触发闪电贷流程
         bytes memory data = abi.encode(hypothecatedToken, amount);
@@ -64,7 +64,7 @@ contract TestUniswapV2FlashSwap is IUniswapV2Callee{
         (address hypothecatedToken, uint amount) = abi.decode(_data, (address, uint));
 
         console.log("cur contract [%s] has borrow [%s] WETH by [%s] USDC", address(this), IERC20(hypothecatedToken).balanceOf(address(this)), amount);
-        console.log("token1 balance:",IERC20(token1).balanceOf(address(this)));
+        console.log("换出 [%s]token1 balance:",IERC20(token1).balanceOf(address(this)));
 
         // 3%
         uint fee = (amount * 3 / 997) + 1;

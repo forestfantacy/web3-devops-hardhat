@@ -22,11 +22,11 @@ describe("Lock", function () {
       console.log("1 flashLoanSwapSigner.getBalance:",ethers.utils.formatEther(await flashLoanSwapSigner.getBalance()));
 
       //发给flashLoanSwap N个WETH Token
-      // 1：先发给调用者owner  N个WETH
+      // 1：先发给owner(msg.sender)  10个WETH
       await weth.deposit({
         value: AmountToSwap
       });
-      // 2.当前账户owner 给测试合约 转N个WETH
+      // 2.当前账户owner 给测试合约 转10个ETHER 
       await weth.transfer(flashLoanSwap.address, AmountToSwap);
       const wethERC20 = await ethers.getContractAt("IERC20", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2");
       const balanceBeforeSwap = await wethERC20.balanceOf(flashLoanSwap.address);
