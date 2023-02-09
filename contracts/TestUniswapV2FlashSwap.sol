@@ -81,16 +81,7 @@ contract TestUniswapV2FlashSwap is IUniswapV2Callee{
         // 当前合约把 USDC 还给交易对
         IERC20(borrowToken).transfer(pair, amountToRepay);
 
+        console.log("return borrowToken");
         // 如果不还怎么检查并报错 UniswapV2: INSUFFICIENT_INPUT_AMOUNT
     }
-        // 调用者没有payload回调
-    receive() external payable {
-
-    }
-
-    // 调用者带有payload时回调
-    fallback() external payable{
-
-    }
-
 }
