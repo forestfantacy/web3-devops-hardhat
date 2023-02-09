@@ -27,10 +27,11 @@ describe("", function () {
       // const wethERC20 = await ethers.getContractAt("IERC20", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2");
       // await wethERC20.transfer(testUniswapV2FlashSwap.address, ethers.utils.parseEther('10'));
       //兑换和调用合约需要支付手续费
-      await owner.sendTransaction({
-        to: testUniswapV2FlashSwap.address,
-        value: ethers.utils.parseEther('3')
-      });
+      // const [owner, addr1 , addr2] = await ethers.getSigners();
+      // await owner.sendTransaction({
+      //   to: testUniswapV2FlashSwap.address,
+      //   value: ethers.utils.parseEther('3')
+      // });
       console.log('22222');
 
       const usdcERC20 = await ethers.getContractAt("IERC20", BORROW_TOKEN_ADDR);
@@ -39,9 +40,9 @@ describe("", function () {
       const usdcWhaleSigner = await ethers.getSigner(USDC_WHALE);
 
       //先把USDC_WHAL USDC转给测试合约，
-      console.log("usdc whale balance:%s", await usdcERC20.balanceOf(USDC_WHALE));
+      // console.log("usdc whale balance:%s", await usdcERC20.balanceOf(USDC_WHALE));
       // await usdcERC20.connect(usdcWhaleSigner).transfer(testUniswapV2FlashSwap.address, BORROW_AMOUNT);
-      await usdcERC20.transfer(testUniswapV2FlashSwap.address, ethers.utils.parseEther('10'));
+      // await usdcERC20.transfer(testUniswapV2FlashSwap.address, ethers.utils.parseEther('10'));
       console.log('3333');
       // 执行flash swap 贷款
       const tx = await testUniswapV2FlashSwap.connect(usdcWhaleSigner).testFlashSwap(usdcERC20.address, BORROW_AMOUNT);
