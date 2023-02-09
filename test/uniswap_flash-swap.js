@@ -22,6 +22,16 @@ describe("", function () {
       const TestUniswapV2FlashSwap = await ethers.getContractFactory("TestUniswapV2FlashSwap");
       const testUniswapV2FlashSwap = await TestUniswapV2FlashSwap.deploy();
       await testUniswapV2FlashSwap.deployed();
+
+
+      console.log('00000');
+      const [owner] = await ethers.getSigners();
+      const weth = await ethers.getContractAt("IWETH", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2");
+      await owner.sendTransaction({
+        to: testUniswapV2FlashSwap.address,
+        value:  ethers.utils.parseEther('10')
+      });  
+
       console.log('11111');
       //先把WETH转给测试合约，为兑换USDC做准备，因为要用有WETH，才能借USDC
       // const wethERC20 = await ethers.getContractAt("IERC20", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2");
