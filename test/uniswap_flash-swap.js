@@ -3,6 +3,7 @@ const { ethers,network } = require("hardhat");
 
 describe("", function () {
 
+  const DAI_WHALE = '0xF977814e90dA44bFA03b6295A0616a897441aceC';
 
   const USDC_WHALE = '0xf9211FfBD6f741771393205c1c3F6D7d28B90F03';
 
@@ -18,20 +19,20 @@ describe("", function () {
         method: "hardhat_impersonateAccount",
         params: [USDC_WHALE]
         })
-
+        await network.provider.request({
+          method: "hardhat_impersonateAccount",
+          params: [DAI_WHALE]
+          })
       const TestUniswapV2FlashSwap = await ethers.getContractFactory("TestUniswapV2FlashSwap");
       const testUniswapV2FlashSwap = await TestUniswapV2FlashSwap.deploy();
       await testUniswapV2FlashSwap.deployed();
 
-
-      console.log('00000');
-      const [owner] = await ethers.getSigners();
-      const weth = await ethers.getContractAt("IWETH", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2");
-      await owner.sendTransaction({
+      whaleSigner = await ethers.getSigner(DAI_WHALE);
+      //冒充转账
+      await whaleSigner.sendTransaction({
         to: testUniswapV2FlashSwap.address,
-        value:  ethers.utils.parseEther('10')
-      });  
-
+        value: ethers.utils.parseUnits("1000", "ether"),
+      });
       console.log('11111');
       //先把WETH转给测试合约，为兑换USDC做准备，因为要用有WETH，才能借USDC
       // const wethERC20 = await ethers.getContractAt("IERC20", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2");
