@@ -36,6 +36,7 @@ contract TestUniswapV2FlashSwap is IUniswapV2Callee{
         //不为空则触发闪电贷流程
         bytes memory data = abi.encode(borrowToken, amount);
 
+       console.log("before borrow WETH [%s]",IERC20(WETH).balanceOf(address(this)));
         /**
          * 交易对借出指定数量USDC放到当前合约地址
          * @param _sender 交易对
@@ -43,9 +44,8 @@ contract TestUniswapV2FlashSwap is IUniswapV2Callee{
          * @param _amount1  0  有可能同时为空或者同时有值吗？
          * @param _data 
          */
-        IUniswapV2Pair(pair).swap(amount0Out, amount1Out, address(this), data);
-        // IUniswapV2Pair(pair).swap(1000 * 1000000, 0, address(this), data); // 借1000个USDC并发给当前合约
-        // IUniswapV2Pair(pair).swap(1000000, 1000000, address(this), data); //amount0Out amount1Out 都有值是啥意思？
+        // IUniswapV2Pair(pair).swap(amount0Out, amount1Out, address(this), data);
+        IUniswapV2Pair(pair).swap(1000000, 1000000, address(this), data); //amount0Out amount1Out 都有值是啥意思？
     }
 
     // 回调接口
@@ -65,6 +65,7 @@ contract TestUniswapV2FlashSwap is IUniswapV2Callee{
         (address borrowToken, uint amount) = abi.decode(_data, (address, uint));
 
         console.log("cur contract [%s] has borrow [%s] USDC", address(this), IERC20(borrowToken).balanceOf(address(this)));
+        console.log("after borrow WETH [%s]",IERC20(WETH).balanceOf(address(this)));
 
         // 3%
         uint fee = (amount * 3 / 997) + 1;
