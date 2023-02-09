@@ -43,8 +43,8 @@ contract TestUniswapV2FlashSwap is IUniswapV2Callee{
          * @param _amount1  0  有可能同时为空或者同时有值吗？
          * @param _data 
          */
-        // IUniswapV2Pair(pair).swap(amount0Out, amount1Out, address(this), data);
-        IUniswapV2Pair(pair).swap(1000000000, 0, address(this), data); // 借1000个USDC并发给当前合约
+        IUniswapV2Pair(pair).swap(amount0Out, amount1Out, address(this), data);
+        // IUniswapV2Pair(pair).swap(1000 * 1000000, 0, address(this), data); // 借1000个USDC并发给当前合约
         // IUniswapV2Pair(pair).swap(1000000, 1000000, address(this), data); //amount0Out amount1Out 都有值是啥意思？
     }
 
